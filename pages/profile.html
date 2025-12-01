@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/output.css" rel="stylesheet">
+    <title>Bidster - Profile</title>
+</head>
+<body>
+    <header>
+        <a href="../index.html">Bidster</a>
+        <a href="./create.html">+ Create Listing</a>
+        <nav>
+            <a href="./profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log Out</a>
+        </nav>
+        <div id="nav-credits">0 Credits</div>
+    </header>
+        <section id="search-section">
+            <label for="search-input">Search for a listing</label>
+            <input type="text" id="search-input" placeholder="Search by title..."/>
+        </section>
+    <main>
+        <!-- Profile Info -->
+        <section id="profile-section">
+            <div id="profile-banner"></div>
+            <button id="edit-profile-btn">Edit Profile</button>
+            <div id="profile-info">
+                <div id="profile-avatar"></div>
+                <div>
+                    <h2 id="profile-name"></h2>
+                    <p id="profile-email"></p>
+                    <p id="profile-bio"></p>
+                    <div id="profile-credits"></div>
+                </div>
+            </div>
+        </section>
+        <!-- My Listing -->
+        <section id="my-listings-section">
+            <h2>My Listings</h2>
+            <div id="my-listings-container"></div>
+        </section>
+        <!-- My Bids -->
+        <section id="my-bids-section">
+            <h2>My Bids</h2>
+            <div id="my-bids-container"></div>
+        </section>
+    </main>
+    <footer>
+        <h2>Bidster</h2>
+        <a href="../index.html">Home</a>
+        <a href="./register.html">Register</a>
+        <a href="./login.html">Login</a>
+    </footer>
+</body>
+</html>

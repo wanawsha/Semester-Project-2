@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/output.css">
+    <title>Bidster - Edit Profile</title>
+</head>
+<body>
+    <header>
+        <a href="../index.html">Bidster</a>
+        <a href="./create.html">+ Create Listing</a>
+        <nav>
+            <a href="./profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log Out</a>
+        </nav>
+        <div id="nav-credits">0 Credits</div>
+    </header>
+    <section id="search-section">
+        <label for="search-input">Search for a listing</label>
+        <input type="text" id="search-input" placeholder="Search by title..." />
+    </section>
+    <main>
+        <section id="edit-profile-section">
+            <h1>Edit Profile</h1>
+            <form id="edit-profile-form">
+                <div>
+                    <label for="avatar-url">Avatar URL</label>
+                    <input type="url" id="avatar-url" placeholder="Enter avatar image URL">
+                </div>
+                <div>
+                    <label for="banner-url">Banner URL</label>
+                    <input type="url" id="banner-url" placeholder="Enter banner image URL">
+                </div>
+                <div>
+                    <label for="bio">Bio</label>
+                    <input type="url" id="banner-url" placeholder="Write your bio here..."">
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

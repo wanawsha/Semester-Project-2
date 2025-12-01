@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/output.css">
+    <title>Bidster - Listing</title>
+</head>
+<body>
+    <header>
+        <a href="../index.html">Bidster</a>
+        <a href="./create.html">+ Create Listing</a>
+        <nav>
+            <a href="./profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log Out</a>
+        </nav>
+        <div id="nav-credits">0 Credits</div>
+    </header>
+    <section id="search-section">
+        <label for="search-input">Search for a listing</label>
+        <input type="text" id="search-input" placeholder="Search by title..." />
+    </section>
+    <main>
+        <section id="single-listing-section">
+            <h1 id="listing-title"></h1>
+            <p>
+                <span>Seller:</span>
+                <span id="listing-seller"></span>
+            </p>
+            <div id="listing-description"></div>
+            <div id="listing-highest-bid"></div>
+            <form id="place-bid-form">
+                <label for="bid-amount">Your Bid</label>
+                <input type="nubmer" id="bid-amount" min="1" required>
+                <button type="submit">Place Bid</button>
+            </form>
+            <section id="bid-history-section">
+                <h2>Bid History</h2>
+                <div id="bid-history"></div>
+            </section>
+        </section>
+    </main>
+    <footer>
+            <h2>Bidster</h2>
+        <a href="../index.html">Home</a>
+        <a href="./register.html">Register</a>
+        <a href="./login.html">Login</a>
+    </footer>
+</body>
+</html>
