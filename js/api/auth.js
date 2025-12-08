@@ -3,7 +3,6 @@ import { storeUser, storeToken, storeCredits } from "../utils/storage.js";
 const AUTH_BASE = "https://v2.api.noroff.dev/auth";
 const PROFILE_BASE = "https://v2.api.noroff.dev/auction/profiles";
 
-
 export async function registerUser(name, email, password) {
     if (!email.endsWith("@stud.noroff.no")) {
         throw new Error("Email must end with @stud.noroff.no");
@@ -47,9 +46,11 @@ export async function loginUser(email, password) {
         }
 
         const token = data.data.accessToken;
+        const username = data.data.name;
+
         storeToken(token);
 
-        const profile = await fetchUserProfile(data.data.name);
+        const profile = await fetchUserProfile(username, token);
 
         storeUser(profile);
         storeCredits(profile.credits);
@@ -60,11 +61,14 @@ export async function loginUser(email, password) {
     }
 }
 
-export async function fetchUserProfile(username) {
+export async function fetchUserProfile(username, token) {
     try {
         const response = await fetch(`${PROFILE_BASE}/${username}`, {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
         });
 
         const data = await response.json();

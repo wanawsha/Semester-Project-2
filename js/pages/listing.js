@@ -1,13 +1,18 @@
 import { getListingById } from "../api/listings.js";
-import { getStoredUser, getStoredToken } from "../utils/storage.js";
+import { getStoredUser } from "../utils/storage.js";
+import { authHeaders } from "../utils/api.js";
+import { setupNavbar } from "../utils/navbar.js";
+
+setupNavbar();
 
 const listingContainer = document.getElementById("single-listing-section");
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
+
 async function loadListing() {
-    const listing = await getListingById(id);
+    const listing = await getListingById(id, true); 
 
     if (!listing) {
         listingContainer.innerHTML = "<p>Listing not found.</p>";
@@ -23,7 +28,7 @@ async function loadListing() {
         "Ends at: " + new Date(listing.endsAt).toLocaleString();
 
     document.getElementById("listing-description").textContent =
-        listing.description;
+        listing.description || "";
 
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map((b) => b.amount))
@@ -32,6 +37,7 @@ async function loadListing() {
     document.getElementById("listing-highest-bid").textContent =
         `Highest Bid: ${highestBid} Credits`;
 
+    
     const mainImageEl = document.getElementById("listing-main-image");
     const mainImage = listing.media?.length ? listing.media[0] : "";
     mainImageEl.style.backgroundImage = `url('${mainImage}')`;
@@ -43,6 +49,7 @@ async function loadListing() {
         const thumb = document.createElement("img");
         thumb.src = img;
         thumb.alt = `Image ${i + 1}`;
+        thumb.className = "gallery-thumb";
         thumb.addEventListener("click", () => {
             mainImageEl.style.backgroundImage = `url('${img}')`;
         });
@@ -53,7 +60,7 @@ async function loadListing() {
 
     setupOwnerActions(listing);
 
-    handleBidForm(listing);
+    setupBidForm(listing);
 }
 
 function renderBidHistory(bids = []) {
@@ -63,14 +70,15 @@ function renderBidHistory(bids = []) {
         bidHistoryEl.textContent = "No bids yet.";
         return;
     }
-
+    
     bidHistoryEl.innerHTML = "";
 
-    bids.sort((a, b) => b.amount - a.amount).forEach((bid) => {
-        const el = document.createElement("p");
-        el.textContent = `${bid.bidderName}: ${bid.amount} Credits`;
-        bidHistoryEl.appendChild(el);
-    });
+    bids.sort((a, b) => b.amount - a.amount)
+        .forEach(bid => {
+            const row = document.createElement("p");
+            row.textContent = `${bid.bidder?.name || "Unknown"}: ${bid.amount} Credits`;
+            bidHistoryEl.appendChild(row);
+        });
 }
 
 function setupOwnerActions(listing) {
@@ -84,10 +92,39 @@ function setupOwnerActions(listing) {
             <a href="./edit-listing.html?id=${listing.id}">Edit Listing</a>
             <button id="delete-listing-btn">Delete Listing</button>
         `;
+
+        document
+            .getElementById("delete-listing-btn")
+            .addEventListener("click", () => deleteListing(listing.id));
     }
 }
 
-function handleBidForm(listing) {
+async function deleteListing(listingId) {
+    const confirmDelete = confirm("Are you sure you want to delete this listing");
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch(
+            `https://v2.api.noroff.dev/auction/listings/${listingId}`,
+            {
+                method: "DELETE",
+                headers: authHeaders(),
+            }
+        );
+
+        if (!response.ok) {
+            const result = await response.json();
+            throw new Error(result.errors?.[0]?.message || "Delete failed");
+        }
+
+        alert("Listing deleted successfully.");
+        window.location.href = "../index.html";
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+function setupBidForm(listing) {
     const user = getStoredUser();
     const form = document.getElementById("place-bid-form");
 
@@ -100,6 +137,39 @@ function handleBidForm(listing) {
         form.innerHTML = `<p>You cannot bid on your own listing.</p>`;
         return;
     }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const amount = Number(document.getElementById("bid-amount").value);
+
+        if (amount < 1) {
+            return alert("Bid must be at least 1 credit.");
+        }
+
+        try {
+            const response = await fetch(
+                `https://v2.api.noroff.dev/auction/listings/${listing.id}/bids`,
+                {
+                    method: "POST",
+                    headers: authHeaders(),
+                    body: JSON.stringify({ amount }),
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.errors?.[0]?.message || "Could not place bid");
+            }
+
+            alert("Bid placed successfully!");
+            loadListing(); 
+        } catch (error) {
+            alert(error.message);
+        }
+    });
 }
 
 loadListing();
+

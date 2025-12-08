@@ -2,7 +2,7 @@ import { getStoredUser } from "../utils/storage.js";
 import { setupNavbar } from "../utils/navbar.js";
 import { getProfile, getUserListings } from "../api/profileApi.js";
 
-setupNavbar(); 
+setupNavbar();
 
 const nameEl = document.getElementById("profile-name");
 const emailEl = document.getElementById("profile-email");
@@ -14,25 +14,21 @@ const bannerEl = document.getElementById("profile-banner");
 const myListingsContainer = document.getElementById("my-listings-container");
 const myBidsContainer = document.getElementById("my-bids-container");
 
-
 const user = getStoredUser();
 
 if (!user) {
     window.location.href = "./login.html";
 }
 
-
 async function loadProfile() {
     try {
         const profile = await getProfile(user.name);
 
-        // Fill UI
         nameEl.textContent = profile.name;
         emailEl.textContent = profile.email;
         bioEl.textContent = profile.bio || "No bio yet.";
         creditsEl.textContent = `${profile.credits} Credits`;
 
-        // Avatar & banner
         avatarEl.style.backgroundImage = `url('${profile.avatar || ""}')`;
         bannerEl.style.backgroundImage = `url('${profile.banner || ""}')`;
 
@@ -40,11 +36,9 @@ async function loadProfile() {
         loadMyBids(profile.name);
 
     } catch (error) {
-        console.error(error);
         alert("Could not load profile: " + error.message);
     }
 }
-
 
 async function loadMyListings(username) {
     try {
@@ -76,17 +70,20 @@ async function loadMyListings(username) {
 
 async function loadMyBids(username) {
     try {
-        const allListingsResponse = await fetch(`https://v2.api.noroff.dev/auction/listings?_bids=true`);
-        const result = await allListingsResponse.json();
+        const response = await fetch(
+            "https://v2.api.noroff.dev/auction/listings?_bids=true"
+        );
 
-        if (!allListingsResponse.ok) {
-            throw new Error(result.errors?.[0]?.message || "Failed to fetch all listings");
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.errors?.[0]?.message || "Failed to fetch listings");
         }
 
         const listings = result.data;
 
         const myBids = listings.filter(listing =>
-            listing.bids?.some(bid => bid.bidderName === username)
+            listing.bids?.some(bid => bid.bidder?.name === username)
         );
 
         if (myBids.length === 0) {
@@ -105,7 +102,7 @@ async function loadMyBids(username) {
 
             card.innerHTML = `
                 <h3>${listing.title}</h3>
-                <p>Your bid is in this auction</p>
+                <p>You have bid on this auction</p>
                 <p>Current highest bid: ${highestBid} Credits</p>
             `;
 
@@ -117,5 +114,5 @@ async function loadMyBids(username) {
     }
 }
 
-
 loadProfile();
+

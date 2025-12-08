@@ -11,7 +11,7 @@ const bioInput = document.getElementById("bio");
 
 const user = getStoredUser();
 if (!user) {
-    window.location.href = ".login.html";
+    window.location.href = "./login.html";
 }
 
 avatarInput.value = user.avatar || "";
@@ -22,9 +22,9 @@ async function updateProfile(e) {
     e.preventDefault();
 
     const updatedProfile = {
-        avatar: avatarInput.value.trim(),
-        banner: bannerInput.value.trim(),
-        bio: bioInput.value.trim(),
+        avatar: avatarInput.value.trim() || null,
+        banner: bannerInput.value.trim() || null,
+        bio: bioInput.value.trim() || null,
     };
 
     try {
@@ -32,7 +32,10 @@ async function updateProfile(e) {
             `https://v2.api.noroff.dev/auction/profiles/${user.name}`,
             {
                 method: "PUT",
-                headers: authHeaders(),
+                headers: {
+                    ...authHeaders(),
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(updatedProfile),
             }
         );
@@ -49,6 +52,7 @@ async function updateProfile(e) {
         alert("Profile updated successfully!");
 
         window.location.href = "./profile.html";
+
     } catch (error) {
         alert("Error: " + error.message);
     }

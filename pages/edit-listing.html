@@ -23,21 +23,25 @@
     <main>
         <section id="edit-listing-section">
             <h1>Edit Listing</h1>
-            <form id="edit-listing-form">
-                <div>
-                    <label for="edit-title">Title</label>
-                    <input type="text" id="edit-title" required>
-                </div>
-                <div>
-                    <label for="edit-description">Description</label>
-                    <textarea id="edit-description" required></textarea>
-                </div>
-                <div>
-                    <label for="edit-end-date">End Date</label>
-                    <input type="datetime-local" id="edit-end-date" required>
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
+        <form id="edit-listing-form">
+            <div>
+                <label for="edit-title">Title</label>
+                <input type="text" id="edit-title" required>
+            </div>
+            <div>
+                <label for="edit-description">Description</label>
+                <textarea id="edit-description" required></textarea>
+            </div>
+            <div>
+                <label for="edit-end-date">End Date</label>
+                <input type="datetime-local" id="edit-end-date" required>
+            </div>
+            <div>
+                <label for="edit-media">Media (Image URLs)</label>
+                <textarea id="edit-media" placeholder="Enter image URLs separated by commas"></textarea>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
         </section>
     </main>
     <footer>

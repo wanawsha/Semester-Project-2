@@ -1,12 +1,12 @@
 import { registerUser, loginUser } from "../api/auth.js";
 import { setupNavbar } from "../utils/navbar.js";
 
+setupNavbar();
+
 const form = document.getElementById("register-form");
 const nameInput = document.getElementById("register-name");
 const emailInput = document.getElementById("register-email");
 const passwordInput = document.getElementById("register-password");
-
-setupNavbar();
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -14,7 +14,6 @@ form.addEventListener("submit", async (event) => {
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
-
 
     if (name.length < 3) {
         alert("Username must be at least 3 characters.");
@@ -44,3 +43,4 @@ form.addEventListener("submit", async (event) => {
         alert("Registration failed: " + error.message);
     }
 });
+

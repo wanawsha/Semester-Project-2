@@ -1,11 +1,11 @@
 import { loginUser } from "../api/auth.js";
 import { setupNavbar } from "../utils/navbar.js";
 
+setupNavbar();
+
 const form = document.getElementById("login-form");
 const emailInput = document.getElementById("login-email");
 const passwordInput = document.getElementById("login-password");
-
-setupNavbar(); // update navbar if needed
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -34,3 +34,4 @@ form.addEventListener("submit", async (event) => {
         alert("Login failed: " + error.message);
     }
 });
+

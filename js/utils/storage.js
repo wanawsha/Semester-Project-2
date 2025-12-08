@@ -1,8 +1,6 @@
-// Keys for localStorage
 const USER_KEY = "bidster_user";
 const TOKEN_KEY = "bidster_token";
 const CREDITS_KEY = "bidster_credits";
-
 
 export function storeUser(user) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
@@ -30,16 +28,19 @@ export function clearStoredToken() {
 }
 
 export function storeCredits(credits) {
-    localStorage.setItem(CREDITS_KEY, credits);
+    localStorage.setItem(CREDITS_KEY, String(credits));
 }
 
 export function getStoredCredits() {
-    return localStorage.getItem(CREDITS_KEY);
+    const value = localStorage.getItem(CREDITS_KEY);
+    return value ? Number(value) : 0;
 }
 
 export function logout() {
     clearStoredUser();
     clearStoredToken();
     localStorage.removeItem(CREDITS_KEY);
-    window.location.href = "../index.html";
+
+    window.location.href = "/index.html";
 }
+
