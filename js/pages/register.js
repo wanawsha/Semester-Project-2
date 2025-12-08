@@ -16,18 +16,15 @@ form.addEventListener("submit", async (event) => {
     const password = passwordInput.value.trim();
 
     if (name.length < 3) {
-        alert("Username must be at least 3 characters.");
-        return;
+        return alert("Username must be at least 3 characters.");
     }
 
     if (!email.endsWith("@stud.noroff.no")) {
-        alert("Email must end with @stud.noroff.no");
-        return;
+        return alert("Email must end with @stud.noroff.no");
     }
 
     if (password.length < 6) {
-        alert("Password must be at least 6 characters.");
-        return;
+        return alert("Password must be at least 6 characters.");
     }
 
     try {
@@ -37,10 +34,11 @@ form.addEventListener("submit", async (event) => {
 
         await loginUser(email, password);
 
-        window.location.href = "./profile.html";
+        window.location.href = "/pages/profile.html";
 
     } catch (error) {
-        alert("Registration failed: " + error.message);
+        alert(`Registration failed:\n${error.message}`);
     }
 });
+
 

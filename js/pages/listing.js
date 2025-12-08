@@ -12,7 +12,7 @@ const id = params.get("id");
 
 
 async function loadListing() {
-    const listing = await getListingById(id, true); 
+    const listing = await getListingById(id); 
 
     if (!listing) {
         listingContainer.innerHTML = "<p>Listing not found.</p>";
@@ -20,7 +20,6 @@ async function loadListing() {
     }
 
     document.getElementById("listing-title").textContent = listing.title;
-
     document.getElementById("listing-seller").textContent =
         listing.seller?.name || "Unknown";
 
@@ -31,7 +30,7 @@ async function loadListing() {
         listing.description || "";
 
     const highestBid = listing.bids?.length
-        ? Math.max(...listing.bids.map((b) => b.amount))
+        ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
 
     document.getElementById("listing-highest-bid").textContent =
@@ -39,27 +38,30 @@ async function loadListing() {
 
     
     const mainImageEl = document.getElementById("listing-main-image");
-    const mainImage = listing.media?.length ? listing.media[0] : "";
+    const mainImage = listing.media?.length
+        ? listing.media[0]
+        : "https://via.placeholder.com/400x300?text=No+Image";
     mainImageEl.style.backgroundImage = `url('${mainImage}')`;
+
 
     const galleryEl = document.getElementById("listing-gallery");
     galleryEl.innerHTML = "";
 
-    listing.media?.forEach((img, i) => {
-        const thumb = document.createElement("img");
-        thumb.src = img;
-        thumb.alt = `Image ${i + 1}`;
-        thumb.className = "gallery-thumb";
-        thumb.addEventListener("click", () => {
-            mainImageEl.style.backgroundImage = `url('${img}')`;
+    if (listing.media?.length > 1) {
+        listing.media.forEach((img, i) => {
+            const thumb = document.createElement("img");
+            thumb.src = img;
+            thumb.alt = `Image ${i + 1}`;
+            thumb.className = "gallery-thumb";
+            thumb.addEventListener("click", () => {
+                mainImageEl.style.backgroundImage = `url('${img}')`;
+            });
+            galleryEl.appendChild(thumb);
         });
-        galleryEl.appendChild(thumb);
-    });
+    }
 
     renderBidHistory(listing.bids);
-
     setupOwnerActions(listing);
-
     setupBidForm(listing);
 }
 
@@ -70,13 +72,14 @@ function renderBidHistory(bids = []) {
         bidHistoryEl.textContent = "No bids yet.";
         return;
     }
-    
+
     bidHistoryEl.innerHTML = "";
 
-    bids.sort((a, b) => b.amount - a.amount)
+    bids
+        .sort((a, b) => b.amount - a.amount)
         .forEach(bid => {
             const row = document.createElement("p");
-            row.textContent = `${bid.bidder?.name || "Unknown"}: ${bid.amount} Credits`;
+            row.textContent = `${bid.bidderName || "Unknown"}: ${bid.amount} Credits`;
             bidHistoryEl.appendChild(row);
         });
 }
@@ -93,14 +96,13 @@ function setupOwnerActions(listing) {
             <button id="delete-listing-btn">Delete Listing</button>
         `;
 
-        document
-            .getElementById("delete-listing-btn")
+        document.getElementById("delete-listing-btn")
             .addEventListener("click", () => deleteListing(listing.id));
     }
 }
 
 async function deleteListing(listingId) {
-    const confirmDelete = confirm("Are you sure you want to delete this listing");
+    const confirmDelete = confirm("Are you sure you want to delete this listing?");
     if (!confirmDelete) return;
 
     try {

@@ -17,7 +17,7 @@ const myBidsContainer = document.getElementById("my-bids-container");
 const user = getStoredUser();
 
 if (!user) {
-    window.location.href = "./login.html";
+    window.location.href = "/pages/login.html";
 }
 
 async function loadProfile() {
@@ -29,8 +29,8 @@ async function loadProfile() {
         bioEl.textContent = profile.bio || "No bio yet.";
         creditsEl.textContent = `${profile.credits} Credits`;
 
-        avatarEl.style.backgroundImage = `url('${profile.avatar || ""}')`;
-        bannerEl.style.backgroundImage = `url('${profile.banner || ""}')`;
+        avatarEl.style.backgroundImage = `url('${profile.avatar || "/images/avatar-placeholder.png"}')`;
+        bannerEl.style.backgroundImage = `url('${profile.banner || "/images/banner-placeholder.jpg"}')`;
 
         loadMyListings(profile.name);
         loadMyBids(profile.name);
@@ -44,7 +44,7 @@ async function loadMyListings(username) {
     try {
         const listings = await getUserListings(username);
 
-        if (listings.length === 0) {
+        if (!listings.length) {
             myListingsContainer.innerHTML = "<p>You haven't created any listings yet.</p>";
             return;
         }
@@ -55,15 +55,15 @@ async function loadMyListings(username) {
             card.classList.add("profile-listing-card");
 
             card.innerHTML = `
-                <div class="profile-listing-image" 
-                     style="background-image:url('${listing.media?.[0] || ""}')"></div>
+                <div class="profile-listing-image"
+                     style="background-image:url('${listing.media?.[0] || "/images/no-image.jpg"}')"></div>
                 <h3>${listing.title}</h3>
             `;
 
             myListingsContainer.appendChild(card);
         });
 
-    } catch (error) {
+    } catch {
         myListingsContainer.innerHTML = "<p>Error loading your listings.</p>";
     }
 }
@@ -71,7 +71,7 @@ async function loadMyListings(username) {
 async function loadMyBids(username) {
     try {
         const response = await fetch(
-            "https://v2.api.noroff.dev/auction/listings?_bids=true"
+            "https://v2.api.noroff.dev/auction/listings?_bids=true&_seller=true"
         );
 
         const result = await response.json();
@@ -86,7 +86,7 @@ async function loadMyBids(username) {
             listing.bids?.some(bid => bid.bidder?.name === username)
         );
 
-        if (myBids.length === 0) {
+        if (!myBids.length) {
             myBidsContainer.innerHTML = "<p>You haven't placed any bids yet.</p>";
             return;
         }
@@ -109,10 +109,11 @@ async function loadMyBids(username) {
             myBidsContainer.appendChild(card);
         });
 
-    } catch (error) {
+    } catch {
         myBidsContainer.innerHTML = "<p>Error loading your bids.</p>";
     }
 }
 
 loadProfile();
+
 

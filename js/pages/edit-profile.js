@@ -14,6 +14,7 @@ if (!user) {
     window.location.href = "./login.html";
 }
 
+// Pre-fill fields
 avatarInput.value = user.avatar || "";
 bannerInput.value = user.banner || "";
 bioInput.value = user.bio || "";
@@ -27,15 +28,19 @@ async function updateProfile(e) {
         bio: bioInput.value.trim() || null,
     };
 
+    if (!updatedProfile.avatar && !updatedProfile.banner && !updatedProfile.bio) {
+        const confirmClear = confirm(
+            "You are saving an empty profile. Continue?"
+        );
+        if (!confirmClear) return;
+    }
+
     try {
         const response = await fetch(
             `https://v2.api.noroff.dev/auction/profiles/${user.name}`,
             {
                 method: "PUT",
-                headers: {
-                    ...authHeaders(),
-                    "Content-Type": "application/json",
-                },
+                headers: authHeaders(),
                 body: JSON.stringify(updatedProfile),
             }
         );
@@ -50,7 +55,6 @@ async function updateProfile(e) {
         storeCredits(result.data.credits);
 
         alert("Profile updated successfully!");
-
         window.location.href = "./profile.html";
 
     } catch (error) {

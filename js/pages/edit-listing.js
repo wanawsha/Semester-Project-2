@@ -23,7 +23,7 @@ if (!user) {
 }
 
 async function loadListing() {
-    const listing = await getListingById(id, true);
+    const listing = await getListingById(id);
 
     if (!listing) {
         alert("Listing not found.");
@@ -40,7 +40,6 @@ async function loadListing() {
     titleInput.value = listing.title;
     descriptionInput.value = listing.description || "";
     endDateInput.value = new Date(listing.endsAt).toISOString().slice(0, 16);
-
     mediaInput.value = listing.media?.join(", ") || "";
 }
 
@@ -56,6 +55,16 @@ async function updateListing(e) {
             .map(url => url.trim())
             .filter(url => url.length > 0),
     };
+
+    if (!updatedListing.title || !updatedListing.description) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    if (new Date(updatedListing.endsAt) <= new Date()) {
+        alert("End date must be in the future.");
+        return;
+    }
 
     try {
         const response = await fetch(
@@ -84,3 +93,4 @@ async function updateListing(e) {
 form.addEventListener("submit", updateListing);
 
 loadListing();
+
