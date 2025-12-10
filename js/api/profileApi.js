@@ -1,12 +1,11 @@
-import { authHeaders, jsonHeaders } from "../utils/api.js";
+import { authHeaders } from "../utils/api.js";
 
 const PROFILE_BASE = "https://v2.api.noroff.dev/auction/profiles";
-
 
 export async function getProfile(username) {
     try {
         const response = await fetch(`${PROFILE_BASE}/${username}`, {
-            headers: jsonHeaders(),
+            headers: authHeaders(), 
         });
 
         const result = await response.json();
@@ -26,7 +25,7 @@ export async function getUserListings(username) {
     try {
         const response = await fetch(
             `${PROFILE_BASE}/${username}/listings?_bids=true`,
-            { headers: jsonHeaders() } 
+            { headers: authHeaders() } // FIXED
         );
 
         const result = await response.json();
@@ -46,7 +45,7 @@ export async function getUserBids(username) {
     try {
         const response = await fetch(
             `${PROFILE_BASE}/${username}/bids?_listings=true`,
-            { headers: jsonHeaders() } 
+            { headers: authHeaders() } 
         );
 
         const result = await response.json();
@@ -55,7 +54,7 @@ export async function getUserBids(username) {
             throw new Error(result.errors?.[0]?.message || "Failed to fetch user bids");
         }
 
-        return result.data; 
+        return result.data;
     } catch (error) {
         console.error("User bids error:", error);
         throw error;

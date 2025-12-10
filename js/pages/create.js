@@ -33,10 +33,14 @@ async function createListing(e) {
         return;
     }
 
-    const media = mediaInput.value
-        .split(",")
-        .map(url => url.trim())
-        .filter(url => url.length > 0);
+   const media = mediaInput.value
+    .split(",")
+    .map(url => url.trim())
+    .filter(url => url.length > 0)
+    .map(url => ({
+        url: url,
+        alt: "Listing image"
+    }));
 
     const newListing = {
         title,

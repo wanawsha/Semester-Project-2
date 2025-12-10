@@ -1,5 +1,13 @@
 const BASE_URL = "https://v2.api.noroff.dev/auction/listings";
 
+
+const API_KEY = "f4cce5be-e6d9-480d-a9a1-1d87bb099c77";
+
+const headers = {
+    "Content-Type": "application/json",
+    "X-Noroff-API-Key": API_KEY,
+};
+
 export async function getAllListings({ includeSeller = true, includeBids = true } = {}) {
     const query = [];
 
@@ -9,7 +17,7 @@ export async function getAllListings({ includeSeller = true, includeBids = true 
     const url = `${BASE_URL}?${query.join("&")}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { headers });
         const result = await response.json();
 
         if (!response.ok) {
@@ -31,7 +39,7 @@ export async function getListingById(id, includeRelations = true) {
     }
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { headers });
         const result = await response.json();
 
         if (!response.ok) {

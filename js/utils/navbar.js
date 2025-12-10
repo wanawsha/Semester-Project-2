@@ -1,38 +1,45 @@
 import { getStoredUser, getStoredCredits, logout } from "./storage.js";
 
 export function setupNavbar() {
-    const creditsEl = document.getElementById("nav-credits");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    const loginLink = document.getElementById("nav-login");
-    const registerLink = document.getElementById("nav-register");
-
     const user = getStoredUser();
 
-    if (!user) {
-        if (creditsEl) creditsEl.hidden = true;
-        if (logoutBtn) logoutBtn.hidden = true;
+    const loginLink = document.getElementById("login-link");
+    const registerLink = document.getElementById("register-link");
+    const profileLink = document.getElementById("profile-link");
+    const logoutBtn = document.getElementById("logout-btn");
+    const createLink = document.getElementById("create-link");
+    const creditsEl = document.getElementById("nav-credits");
 
-        if (loginLink) loginLink.hidden = false;
-        if (registerLink) registerLink.hidden = false;
+    if (!user) {
+        if (loginLink) loginLink.style.display = "inline";
+        if (registerLink) registerLink.style.display = "inline";
+
+        if (profileLink) profileLink.style.display = "none";
+        if (logoutBtn) logoutBtn.style.display = "none";
+        if (createLink) createLink.style.display = "none";
+        if (creditsEl) creditsEl.style.display = "none";
+
         return;
     }
 
+    if (loginLink) loginLink.style.display = "none";
+    if (registerLink) registerLink.style.display = "none";
+
+    if (profileLink) profileLink.style.display = "inline";
+    if (logoutBtn) logoutBtn.style.display = "inline";
+    if (createLink) createLink.style.display = "inline";
+
     const credits = getStoredCredits() || 0;
+
     if (creditsEl) {
-        creditsEl.hidden = false;
         creditsEl.textContent = `${credits} Credits`;
+        creditsEl.style.display = "inline";
     }
 
-    if (loginLink) loginLink.hidden = true;
-    if (registerLink) registerLink.hidden = true;
-
     if (logoutBtn) {
-        logoutBtn.hidden = false;
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
             logout();
         });
     }
 }
-

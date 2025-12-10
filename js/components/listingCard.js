@@ -5,8 +5,8 @@ export function createListingCard(listing) {
     const image = document.createElement("div");
     image.classList.add("listing-image");
 
-    const firstImage =
-        listing.media?.[0] || "https://via.placeholder.com/300?text=No+Image";
+    const firstImage = listing.media?.[0]?.url 
+        || "https://via.placeholder.com/300?text=No+Image";
 
     image.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(image);
@@ -37,18 +37,19 @@ export function createListingCard(listing) {
     price.classList.add("listing-price");
 
     if (listing.bids?.length > 0) {
-        const highestBid = Math.max(...listing.bids.map((b) => b.amount));
+        const highestBid = Math.max(...listing.bids.map(b => b.amount));
         price.textContent = `${highestBid} credits`;
     } else {
         price.textContent = "0 credits";
     }
-
     card.appendChild(price);
 
     const btn = document.createElement("a");
     btn.classList.add("view-details-btn");
+
     btn.href = `/pages/listing.html?id=${listing.id}`;
     btn.textContent = "View Details";
+
     card.appendChild(btn);
 
     return card;
