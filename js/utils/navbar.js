@@ -10,41 +10,38 @@ export function setupNavbar() {
     const createLink = document.getElementById("create-link");
     const creditsEl = document.getElementById("nav-credits");
 
-    if (createLink) {
-        createLink.classList.remove("hidden"); 
-
-        if (user) {
-            createLink.href = "./pages/create.html";  
-        } else {
-            createLink.href = "./pages/login.html";   
-        }
-    }
+    const show = (el) => el && el.classList.remove("hidden");
+    const hide = (el) => el && el.classList.add("hidden");
 
     if (!user) {
-        loginLink.classList.remove("hidden");
-        registerLink.classList.remove("hidden");
-
-        profileLink.classList.add("hidden");
-        logoutBtn.classList.add("hidden");
-        creditsEl.classList.add("hidden");
-
+        hide(profileLink);
+        hide(logoutBtn);
+        show(createLink);
+        show(loginLink);
+        show(registerLink);
+        hide(creditsEl);
         return;
     }
 
-    loginLink.classList.add("hidden");
-    registerLink.classList.add("hidden");
+    hide(loginLink);
+    hide(registerLink);
+    show(profileLink);
+    show(logoutBtn);
+    show(createLink);
 
-    profileLink.classList.remove("hidden");
-    logoutBtn.classList.remove("hidden");
+    if (creditsEl) {
+        creditsEl.textContent = `${getStoredCredits() || 0} Credits`;
+        show(creditsEl);
+    }
 
-    creditsEl.textContent = `${getStoredCredits() || 0} Credits`;
-    creditsEl.classList.remove("hidden");
-
-    logoutBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        logout();
-    });
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            logout();
+        });
+    }
 }
+
 
 
 

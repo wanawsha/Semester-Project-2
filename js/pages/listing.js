@@ -12,6 +12,8 @@ const id = params.get("id");
 
 
 async function loadListing() {
+    console.log("bid history element:", document.getElementById("bid-history"));
+
     const listing = await getListingById(id); 
 
     if (!listing) {
@@ -38,27 +40,34 @@ async function loadListing() {
 
     
     const mainImageEl = document.getElementById("listing-main-image");
-    const mainImage = listing.media?.length
-        ? listing.media[0]
-        : "https://via.placeholder.com/400x300?text=No+Image";
+
+    const mainImage =
+        listing.media?.length && listing.media[0].url
+            ? listing.media[0].url
+            : "https://via.placeholder.com/400x300?text=No+Image";
+
     mainImageEl.style.backgroundImage = `url('${mainImage}')`;
 
 
     const galleryEl = document.getElementById("listing-gallery");
-    galleryEl.innerHTML = "";
 
-    if (listing.media?.length > 1) {
-        listing.media.forEach((img, i) => {
-            const thumb = document.createElement("img");
-            thumb.src = img;
-            thumb.alt = `Image ${i + 1}`;
-            thumb.className = "gallery-thumb";
-            thumb.addEventListener("click", () => {
-                mainImageEl.style.backgroundImage = `url('${img}')`;
+    if (galleryEl) {
+        galleryEl.innerHTML = "";
+
+        if (listing.media?.length > 1) {
+            listing.media.forEach((img, i) => {
+                const thumb = document.createElement("img");
+                thumb.src = img;
+                thumb.alt = `Image ${i + 1}`;
+                thumb.className = "gallery-thumb";
+                thumb.addEventListener("click", () => {
+                    mainImageEl.style.backgroundImage = `url('${img}')`;
+                });
+                galleryEl.appendChild(thumb);
             });
-            galleryEl.appendChild(thumb);
-        });
+        }
     }
+
 
     renderBidHistory(listing.bids);
     setupOwnerActions(listing);
@@ -69,7 +78,7 @@ function renderBidHistory(bids = []) {
     const bidHistoryEl = document.getElementById("bid-history");
 
     if (!bids.length) {
-        bidHistoryEl.textContent = "No bids yet.";
+        bidHistoryEl.innerHTML = `<p class="text-subtext">No bids yet.</p>`;
         return;
     }
 
@@ -78,11 +87,24 @@ function renderBidHistory(bids = []) {
     bids
         .sort((a, b) => b.amount - a.amount)
         .forEach(bid => {
-            const row = document.createElement("p");
-            row.textContent = `${bid.bidderName || "Unknown"}: ${bid.amount} Credits`;
+            const row = document.createElement("div");
+            row.className =
+                "grid grid-cols-3 bg-grayMain/20 rounded p-4 mb-3 text-sm font-body";
+
+            const bidder = bid.bidder?.name || "Unknown";
+            const date = new Date(bid.created).toLocaleDateString("en-GB");
+            const amount = `${bid.amount} CREDITS`;
+
+            row.innerHTML = `
+                <span class="font-heading">${bidder}</span>
+                <span class="text-subtext">${date}</span>
+                <span class="text-accent font-heading text-right">${amount}</span>
+            `;
+
             bidHistoryEl.appendChild(row);
         });
 }
+
 
 function setupOwnerActions(listing) {
     const user = getStoredUser();

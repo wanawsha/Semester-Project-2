@@ -6,35 +6,34 @@ export function createListingCard(listing) {
     const imgWrap = document.createElement("div");
     imgWrap.className =
         "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
+
     const firstImage =
-        listing.media?.[0] ||
-        "https://via.placeholder.com/300?text=No+Image";
+        listing.media?.length && listing.media[0].url
+            ? listing.media[0].url
+            : "https://via.placeholder.com/300?text=No+Image";
+
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
 
     const title = document.createElement("h3");
-    title.className =
-        "mt-6 font-heading text-xl text-dark";
+    title.className = "mt-6 font-heading text-xl text-dark";
     title.textContent = listing.title;
     card.appendChild(title);
 
     const seller = document.createElement("p");
-    seller.className =
-        "text-subtext text-sm mt-1";
+    seller.className = "text-subtext text-sm mt-1";
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
     const description = document.createElement("p");
-    description.className =
-        "text-subtext text-sm mt-4";
+    description.className = "text-subtext text-sm mt-4";
     const raw = String(listing.description || "");
     description.textContent =
         raw.length > 80 ? raw.slice(0, 80) + "..." : raw;
     card.appendChild(description);
 
     const price = document.createElement("p");
-    price.className =
-        "text-accent font-heading text-xl mt-6";
+    price.className = "text-accent font-heading text-xl mt-6";
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
@@ -55,6 +54,7 @@ export function createListingCard(listing) {
 
     return card;
 }
+
 
 
 
