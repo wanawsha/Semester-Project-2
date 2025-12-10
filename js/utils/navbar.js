@@ -10,36 +10,41 @@ export function setupNavbar() {
     const createLink = document.getElementById("create-link");
     const creditsEl = document.getElementById("nav-credits");
 
-    if (!user) {
-        if (loginLink) loginLink.style.display = "inline";
-        if (registerLink) registerLink.style.display = "inline";
+    if (createLink) {
+        createLink.classList.remove("hidden"); 
 
-        if (profileLink) profileLink.style.display = "none";
-        if (logoutBtn) logoutBtn.style.display = "none";
-        if (createLink) createLink.style.display = "none";
-        if (creditsEl) creditsEl.style.display = "none";
+        if (user) {
+            createLink.href = "./pages/create.html";  
+        } else {
+            createLink.href = "./pages/login.html";   
+        }
+    }
+
+    if (!user) {
+        loginLink.classList.remove("hidden");
+        registerLink.classList.remove("hidden");
+
+        profileLink.classList.add("hidden");
+        logoutBtn.classList.add("hidden");
+        creditsEl.classList.add("hidden");
 
         return;
     }
 
-    if (loginLink) loginLink.style.display = "none";
-    if (registerLink) registerLink.style.display = "none";
+    loginLink.classList.add("hidden");
+    registerLink.classList.add("hidden");
 
-    if (profileLink) profileLink.style.display = "inline";
-    if (logoutBtn) logoutBtn.style.display = "inline";
-    if (createLink) createLink.style.display = "inline";
+    profileLink.classList.remove("hidden");
+    logoutBtn.classList.remove("hidden");
 
-    const credits = getStoredCredits() || 0;
+    creditsEl.textContent = `${getStoredCredits() || 0} Credits`;
+    creditsEl.classList.remove("hidden");
 
-    if (creditsEl) {
-        creditsEl.textContent = `${credits} Credits`;
-        creditsEl.style.display = "inline";
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            logout();
-        });
-    }
+    logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        logout();
+    });
 }
+
+
+

@@ -1,58 +1,61 @@
 export function createListingCard(listing) {
     const card = document.createElement("div");
-    card.classList.add("listing-card");
+    card.className =
+        "flex flex-col bg-white rounded-xl shadow-md p-6 h-full";
 
-    const image = document.createElement("div");
-    image.classList.add("listing-image");
-
-    const firstImage = listing.media?.[0]?.url 
-        || "https://via.placeholder.com/300?text=No+Image";
-
-    image.style.backgroundImage = `url('${firstImage}')`;
-    card.appendChild(image);
+    const imgWrap = document.createElement("div");
+    imgWrap.className =
+        "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
+    const firstImage =
+        listing.media?.[0] ||
+        "https://via.placeholder.com/300?text=No+Image";
+    imgWrap.style.backgroundImage = `url('${firstImage}')`;
+    card.appendChild(imgWrap);
 
     const title = document.createElement("h3");
-    title.classList.add("listing-title");
+    title.className =
+        "mt-6 font-heading text-xl text-dark";
     title.textContent = listing.title;
     card.appendChild(title);
 
     const seller = document.createElement("p");
-    seller.classList.add("listing-seller");
+    seller.className =
+        "text-subtext text-sm mt-1";
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
     const description = document.createElement("p");
-    description.classList.add("listing-description");
-
-    const rawDescription = String(listing.description || "");
-    const trimmedDescription =
-        rawDescription.length > 80
-            ? rawDescription.slice(0, 80) + "..."
-            : rawDescription;
-
-    description.textContent = trimmedDescription;
+    description.className =
+        "text-subtext text-sm mt-4";
+    const raw = String(listing.description || "");
+    description.textContent =
+        raw.length > 80 ? raw.slice(0, 80) + "..." : raw;
     card.appendChild(description);
 
-    const price = document.createElement("div");
-    price.classList.add("listing-price");
-
-    if (listing.bids?.length > 0) {
-        const highestBid = Math.max(...listing.bids.map(b => b.amount));
-        price.textContent = `${highestBid} credits`;
-    } else {
-        price.textContent = "0 credits";
-    }
+    const price = document.createElement("p");
+    price.className =
+        "text-accent font-heading text-xl mt-6";
+    const highestBid = listing.bids?.length
+        ? Math.max(...listing.bids.map(b => b.amount))
+        : 0;
+    price.textContent = `${highestBid} Credits`;
     card.appendChild(price);
 
+    const bottom = document.createElement("div");
+    bottom.className = "mt-auto pt-6";
+
     const btn = document.createElement("a");
-    btn.classList.add("view-details-btn");
-
+    btn.className =
+        "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
     btn.href = `/pages/listing.html?id=${listing.id}`;
-    btn.textContent = "View Details";
+    btn.textContent = "VIEW DETAILS";
 
-    card.appendChild(btn);
+    bottom.appendChild(btn);
+    card.appendChild(bottom);
 
     return card;
 }
+
+
 
 
