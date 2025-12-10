@@ -3,57 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/output.css">
+    <link href="../css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Bidster - Create Listing</title>
 </head>
-<body>
-<header>
-    <a href="../index.html" id="home-logo">Bidster</a>
-    <nav>
-        <a href="./create.html" id="create-link">+ Create Listing</a>
-        <a href="./login.html" id="login-link">Login</a>
-        <a href="./register.html" id="register-link">Register</a>
-        <a href="./profile.html" id="profile-link">My Profile</a>
-        <a href="#" id="logout-btn">Log Out</a>
-    </nav>
-    <div id="nav-credits">0 Credits</div>
-</header>
-
-    <section id="search-section">
-        <label for="search-input">Search for a listing</label>
-        <input type="text" id="search-input" placeholder="Search by title..." />
-    </section>
-    <main>
-        <section id="create-listing-section">
-            <h1>Create Listing</h1>
-            <form id="create-listing-form">
+<body class="bg-bg font-body text-dark">
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
+            <a href="../index.html" id="home-logo" class="text-2xl font-heading text-dark">Bidster</a>
+            <nav class="flex items-center gap-6">
+                <a href="./create.html" id="create-link" class="hidden bg-primary text-white px-4 py-2 rounded hover:opacity-90 transition">+ Create Listing</a>
+                <a href="./login.html" id="login-link" class="text-button hover:underline">Login</a>
+                <a href="./register.html" id="register-link" class="text-button hover:underline">Register</a>
+                <a href="./profile.html" id="profile-link" class="hidden text-dark hover:underline">My Profile</a>
+                <button id="logout-btn" class="hidden text-dark hover:underline">Log Out</button>
+                <div id="nav-credits" class="hidden bg-accent text-white px-3 py-1 rounded font-semibold">0 Credits</div>
+            </nav>
+        </div>
+    </header>
+    <main class="flex justify-center mt-10 px-4">
+        <section class="bg-white w-full max-w-2xl rounded-md shadow-md p-10">
+            <h1 class="font-heading text-xl mb-10 font-bold">Create a listing</h1>
+            <form id="create-listing-form" class="space-y-10">
                 <div>
-                    <label for="listing-title">Title</label>
-                    <input type="text" id="listing-title" required>
+                    <label for="listing-title" class="block text-xs font-heading font-bold mb-2 tracking-wide">Title</label>
+                    <input id="listing-title" type="text" required 
+                        class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none">
                 </div>
                 <div>
-                    <label for="listing-description">Description</label>
-                    <textarea id="listing-description" required></textarea>
+                    <label for="listing-description" class="block text-xs font-heading font-bold mb-2 tracking-wide">Description</label>
+                    <textarea id="listing-description" required 
+                            class="w-full bg-transparent border-b border-grayMain py-2 h-20 resize-none focus:outline-none"></textarea>
                 </div>
                 <div>
-                    <label for="listing-end-date">End Date</label>
-                    <input type="datetime-local" id="listing-end-date" required>
+                    <label for="listing-media" class="block text-xs font-heading font-bold mb-2 tracking-wide">Image URL</label>
+                    <textarea id="listing-media" placeholder="Enter image URLs separated by commas"
+                            class="w-full bg-transparent border-b border-grayMain py-2 h-16 resize-none focus:outline-none"></textarea>
                 </div>
                 <div>
-                    <label for="listing-media">Media (Image URLS)</label>
-                    <textarea id="listing-media" placeholder="Enter Image URLs seperated by commas"></textarea>
+                    <label for="listing-end-date" class="block text-xs font-heading font-bold mb-2 tracking-wide">End Date</label>
+                    <input id="listing-end-date" type="datetime-local" required
+                        class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none">
                 </div>
-                <button type="submit">Create Listing</button>
+                <button type="submit"
+                        class="w-full bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-90 transition">
+                    Create Listing
+                </button>
             </form>
         </section>
     </main>
-    <footer>
-        <h2>Bidster</h2>
-        <a href="../index.html">Home</a>
-        <a href="./register.html">Register</a>
-        <a href="./login.html">Login</a>
+    <footer class="bg-white mt-20 border-t">
+        <div class="max-w-6xl mx-auto text-center py-6">
+            <h2 class="font-heading text-xl mb-3">Bidster</h2>
+            <div class="flex justify-center gap-6 text-sm">
+                <a href="../index.html" class="hover:underline">Home</a>
+                <a href="./register.html" class="hover:underline">Register</a>
+                <a href="./login.html" class="hover:underline">Login</a>
+            </div>
+        </div>
     </footer>
+
     <script type="module" src="../js/pages/create.js"></script>
+
 </body>
 </html>
+
+
+

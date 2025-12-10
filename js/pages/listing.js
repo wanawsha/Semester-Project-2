@@ -36,7 +36,7 @@ async function loadListing() {
         : 0;
 
     document.getElementById("listing-highest-bid").textContent =
-        `Highest Bid: ${highestBid} Credits`;
+        `${highestBid} Credits`;
 
     
     const mainImageEl = document.getElementById("listing-main-image");
@@ -153,7 +153,12 @@ function setupBidForm(listing) {
     const form = document.getElementById("place-bid-form");
 
     if (!user) {
-        form.innerHTML = `<p>You must <a href="./login.html">log in</a> to place a bid.</p>`;
+        form.innerHTML = `
+            <a href="./login.html"
+            class="mx-auto block w-60 bg-primary text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
+                Log in to place a bid
+            </a>
+        `;
         return;
     }
 
