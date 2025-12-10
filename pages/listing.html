@@ -27,10 +27,10 @@
         <input type="text" id="search-input" placeholder="Search by title..." class="w-full bg-white border border-grayMain rounded px-3 py-2 focus:outline-primary">
     </section>
     <main class="max-w-6xl mx-auto px-4 mt-10">
-        <section class="bg-white border border-grayMain shadow-md rounded-xl p-10">
+        <section class="bg-white shadow-md rounded-md p-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                 <div class="flex justify-center md:justify-start">
-                    <div id="listing-main-image" class="w-[350px] h-[230px] bg-grayMain rounded-lg bg-center bg-cover"></div>
+                    <div id="listing-main-image" class="w-[350px] h-[230px] bg-grayMain rounded-md bg-center bg-cover"></div>
                 </div>
                 <div class="flex flex-col justify-start">
                     <h1 id="listing-title" class="font-heading text-2xl mb-3"></h1>
@@ -41,14 +41,14 @@
                 </div>
             </div>
         </section>
-        <h2 class="font-heading text-center text-lg mt-12 mb-4">BID HISTORY</h2>
-        <section class="bg-white border border-grayMain rounded-xl p-6 shadow">
-            <div id="bid-history" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-        </section>
         <form id="place-bid-form" class="mt-10 flex justify-center items-center gap-4">
             <input type="number" id="bid-amount" min="1" required class="w-64 border border-grayMain rounded px-3 py-2 focus:outline-primary" />
             <button type="submit" class="bg-primary text-white px-10 py-2 rounded hover:opacity-90 transition">PLACE BID</button>
         </form>
+        <h2 class="font-heading text-center text-lg mt-12 mb-4">BID HISTORY</h2>
+        <section class="bg-white rounded-md p-6 shadow">
+            <div id="bid-history" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </section>
     </main>
     <footer class="bg-white mt-16 border-t border-grayMain">
         <div class="max-w-6xl mx-auto py-6 px-4">
