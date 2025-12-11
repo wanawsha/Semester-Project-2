@@ -143,9 +143,8 @@ function setupBidForm(listing) {
     if (!user) {
         form.classList.remove("hidden");
         form.innerHTML = `
-            <a href="./login.html"
-               class="mx-auto block w-60 bg-primary text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
-                Log in to place a bid
+            <a href="login.html" class="mx-auto block w-60 bg-primary text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
+            Log in to place a bid
             </a>
         `;
         return;
