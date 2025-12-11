@@ -28,7 +28,7 @@ form.addEventListener("submit", async (event) => {
 
         alert(`Welcome back, ${user.name}!`);
 
-        window.location.href = "profile.html";
+        window.location.href = "/pages/profile.html";
 
     } catch (error) {
         alert("Login failed: " + error.message);
