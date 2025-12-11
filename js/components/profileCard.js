@@ -49,21 +49,27 @@ export function createProfileCard(listing) {
     editBtn.className ="flex-1 bg-primary text-white font-heading text-sm tracking-wider py-3 rounded-md text-center hover:opacity-90 transition";
 
     const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button"; 
     deleteBtn.textContent = "DELETE";
     deleteBtn.dataset.id = listing.id;
-    deleteBtn.className ="flex-1 bg-delete text-white font-heading text-sm tracking-wider py-3 rounded-md hover:opacity-80 transition";
+    deleteBtn.className =
+    "flex-1 bg-delete text-white font-heading text-sm tracking-wider py-3 rounded-md hover:opacity-80 transition";
 
-    deleteBtn.addEventListener("click", async () => {
+    deleteBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation(); 
+
         const confirmed = confirm("Are you sure you want to delete this listing?");
         if (!confirmed) return;
 
         const success = await deleteListing(listing.id);
+
         if (success) {
             card.remove();
+        } else {
+            alert("Failed to delete listing.");
         }
     });
-
-
 
     btnRow.append(editBtn, deleteBtn);
     card.appendChild(btnRow);

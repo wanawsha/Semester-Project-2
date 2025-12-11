@@ -61,7 +61,6 @@ export async function getListingById(id, includeRelations = true) {
     return result.data;
 }
 
-
 export async function deleteListing(listingId) {
     try {
       const response = await fetch(
@@ -84,9 +83,10 @@ export async function deleteListing(listingId) {
       return true;
     } catch (error) {
       console.error("Delete error:", error);
-      alert(error.message);
       return false;
     }
 }
+
+
 
 
