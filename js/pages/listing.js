@@ -1,7 +1,8 @@
-import { getListingById } from "../api/listings.js";
 import { getStoredUser, storeCredits, storeUser } from "../utils/storage.js";
 import { authHeaders } from "../utils/api.js";
 import { setupNavbar } from "../utils/navbar.js";
+import { getListingById, deleteListing } from "../api/listings.js";
+
 
 setupNavbar();
 
@@ -10,9 +11,6 @@ const listingContainer = document.getElementById("single-listing-section");
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-// -------------------------
-// LOAD LISTING
-// -------------------------
 async function loadListing() {
     const listing = await getListingById(id);
 
@@ -36,7 +34,6 @@ async function loadListing() {
     document.getElementById("listing-highest-bid").textContent =
         `Highest bid: ${highestBid} Credits`;
 
-    // MAIN IMAGE
     const mainImageEl = document.getElementById("listing-main-image");
     const mainImage =
         listing.media?.length && listing.media[0].url
@@ -45,24 +42,24 @@ async function loadListing() {
 
     mainImageEl.style.backgroundImage = `url('${mainImage}')`;
 
-    // GALLERY
     const galleryEl = document.getElementById("listing-gallery");
 
     if (galleryEl) {
         galleryEl.innerHTML = "";
         if (listing.media?.length > 1) {
             listing.media.forEach((img, i) => {
-                const thumb = document.createElement("img");
-                thumb.src = img;
-                thumb.alt = `Image ${i + 1}`;
-                thumb.className = "gallery-thumb";
+            const thumb = document.createElement("img");
+            thumb.src = img.url;
+            thumb.alt = img.alt || `Image ${i + 1}`;
+            thumb.className = "gallery-thumb";
 
-                thumb.addEventListener("click", () => {
-                    mainImageEl.style.backgroundImage = `url('${img}')`;
-                });
-
-                galleryEl.appendChild(thumb);
+            thumb.addEventListener("click", () => {
+                mainImageEl.style.backgroundImage = `url('${img.url}')`;
             });
+
+            galleryEl.appendChild(thumb);
+            });
+
         }
     }
 
@@ -71,9 +68,6 @@ async function loadListing() {
     setupBidForm(listing);
 }
 
-// -------------------------
-// BID HISTORY
-// -------------------------
 function renderBidHistory(bids = []) {
     const bidHistoryEl = document.getElementById("bid-history");
 
@@ -101,9 +95,6 @@ function renderBidHistory(bids = []) {
         });
 }
 
-// -------------------------
-// OWNER ACTIONS (EDIT / DELETE)
-// -------------------------
 function setupOwnerActions(listing) {
     const user = getStoredUser();
     if (!user) return;
@@ -118,33 +109,12 @@ function setupOwnerActions(listing) {
 
         document
             .getElementById("delete-listing-btn")
-            .addEventListener("click", () => deleteListing(listing.id));
-    }
-}
-
-async function deleteListing(listingId) {
-    if (!confirm("Are you sure you want to delete this listing?")) return;
-
-    try {
-        const response = await fetch(
-            `https://v2.api.noroff.dev/auction/listings/${listingId}`,
-            {
-                method: "DELETE",
-                headers: authHeaders(),
+            .addEventListener("click", async () => {
+            const success = await deleteListing(listing.id);
+            if (success) {
+                window.location.href = "/pages/profile.html";
             }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.errors?.[0]?.message || "Delete failed");
-        }
-
-        alert("Listing deleted.");
-        window.location.href = "../index.html";
-
-    } catch (error) {
-        alert(error.message);
+        });
     }
 }
 

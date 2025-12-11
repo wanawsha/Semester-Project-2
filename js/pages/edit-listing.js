@@ -40,6 +40,7 @@ async function loadListing() {
     titleInput.value = listing.title;
     descriptionInput.value = listing.description || "";
     endDateInput.value = new Date(listing.endsAt).toISOString().slice(0, 16);
+    endDateInput.disabled = true;
     mediaInput.value = Array.isArray(listing.media)
     ? listing.media.map(m => m.url || m).join(", ")
     : "";}
@@ -47,19 +48,18 @@ async function loadListing() {
 async function updateListing(e) {
   e.preventDefault();
 
-  const updatedListing = {
+    const updatedListing = {
     title: titleInput.value.trim(),
     description: descriptionInput.value.trim(),
-    endsAt: new Date(endDateInput.value).toISOString(),
     media: mediaInput.value
-      .split(",")
-      .map(url => url.trim())
-      .filter(url => url.length > 0)
-      .map(url => ({
-        url: url,
+        .split(",")
+        .map(url => url.trim())
+        .filter(url => url.length > 0)
+        .map(url => ({
+        url,
         alt: titleInput.value.trim() || "Listing image",
-      })),
-  };
+        })),
+    };
 
   if (!updatedListing.title || !updatedListing.description) {
     alert("Please fill in all fields.");
