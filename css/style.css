@@ -4,3 +4,19 @@
     font-size:xx-large;
     text-transform: uppercase;
 }
+
+#search-section label {
+    font-weight: bold;
+    font-family: 'Roboto Mono', sans-serif;
+    text-transform: uppercase;
+}
+
+#nav-credits {
+    transition: all 0.35s ease;
+}
+
+#nav-credits:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.25),
+            0 0 20px var(--accent);
+}
