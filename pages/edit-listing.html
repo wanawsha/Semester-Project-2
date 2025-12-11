@@ -3,56 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/output.css">
+    <link href="../css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Bidster - Edit Listing</title>
 </head>
-<body>
-<header>
-    <a href="../index.html" id="home-logo">Bidster</a>
-    <nav>
-        <a href="./create.html" id="create-link">+ Create Listing</a>
-        <a href="./login.html" id="login-link">Login</a>
-        <a href="./register.html" id="register-link">Register</a>
-        <a href="./profile.html" id="profile-link">My Profile</a>
-        <a href="#" id="logout-btn">Log Out</a>
-    </nav>
-    <div id="nav-credits">0 Credits</div>
+<body class="bg-bg font-body text-dark">
+
+<!-- NAVBAR -->
+<header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
+        <a href="../index.html" class="text-2xl font-heading text-dark">Bidster</a>
+        <nav class="flex items-center gap-6">
+            <a href="./create.html" id="create-link" class="hidden bg-primary text-white px-4 py-2 rounded hover:opacity-90 transition">+ Create Listing</a>
+            <a href="./login.html" id="login-link" class="text-button hover:underline">Login</a>
+            <a href="./register.html" id="register-link" class="text-button hover:underline">Register</a>
+            <a href="./profile.html" id="profile-link" class="hidden text-dark hover:underline">My Profile</a>
+            <button id="logout-btn" class="hidden text-dark hover:underline">Log Out</button>
+            <div id="nav-credits" class="hidden bg-accent text-white px-3 py-1 rounded font-semibold">0 Credits</div>
+        </nav>
+    </div>
 </header>
-    <section id="search-section">
-        <label for="search-input">Search for a listing</label>
-        <input type="text" id="search-input" placeholder="Search by title..." />
-    </section>
-    <main>
-        <section id="edit-listing-section">
-            <h1>Edit Listing</h1>
-        <form id="edit-listing-form">
+
+<!-- MAIN -->
+<main class="flex justify-center mt-10 px-4">
+    <section class="bg-white w-full max-w-2xl rounded-md shadow-md p-10">
+
+        <h1 class="font-heading text-xl mb-10 font-bold">Edit listing</h1>
+
+        <form id="edit-listing-form" class="space-y-10">
+
+            <!-- TITLE -->
             <div>
-                <label for="edit-title">Title</label>
-                <input type="text" id="edit-title" required>
+                <label for="edit-title" class="block text-xs font-heading font-bold mb-2 tracking-wide">Title</label>
+                <input id="edit-title" type="text" required
+                       class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none">
             </div>
+
+            <!-- DESCRIPTION -->
             <div>
-                <label for="edit-description">Description</label>
-                <textarea id="edit-description" required></textarea>
+                <label for="edit-description" class="block text-xs font-heading font-bold mb-2 tracking-wide">Description</label>
+                <textarea id="edit-description" required
+                          class="w-full bg-transparent border-b border-grayMain py-2 h-20 resize-none focus:outline-none"></textarea>
             </div>
+
+            <!-- MEDIA -->
             <div>
-                <label for="edit-end-date">End Date</label>
-                <input type="datetime-local" id="edit-end-date" required>
+                <label for="edit-media" class="block text-xs font-heading font-bold mb-2 tracking-wide">Image URL</label>
+                <textarea id="edit-media" placeholder="Enter image URLs separated by commas"
+                          class="w-full bg-transparent border-b border-grayMain py-2 h-16 resize-none focus:outline-none"></textarea>
             </div>
+
+            <!-- END DATE -->
             <div>
-                <label for="edit-media">Media (Image URLs)</label>
-                <textarea id="edit-media" placeholder="Enter image URLs separated by commas"></textarea>
+                <label for="edit-end-date" class="block text-xs font-heading font-bold mb-2 tracking-wide">End Date</label>
+                <input id="edit-end-date" type="datetime-local" required
+                       class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none">
             </div>
-            <button type="submit">Save Changes</button>
+
+            <!-- SAVE BUTTON -->
+            <button type="submit"
+                    class="w-full bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-90 transition">
+                Save Changes
+            </button>
+
         </form>
-        </section>
-    </main>
-    <footer>
-        <h2>Bidster</h2>
-        <a href="../index.html">Home</a>
-        <a href="./register.html">Register</a>
-        <a href="./login.html">Login</a>
-    </footer>
-    <script type="module" src="../js/pages/edit-listing.js"></script>
+
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-white mt-20 border-t">
+    <div class="max-w-6xl mx-auto text-center py-6">
+        <h2 class="font-heading text-xl mb-3">Bidster</h2>
+        <div class="flex justify-center gap-6 text-sm">
+            <a href="../index.html" class="hover:underline">Home</a>
+            <a href="./register.html" class="hover:underline">Register</a>
+            <a href="./login.html" class="hover:underline">Login</a>
+        </div>
+    </div>
+</footer>
+
+<script type="module" src="../js/pages/edit-listing.js"></script>
+
 </body>
 </html>
+

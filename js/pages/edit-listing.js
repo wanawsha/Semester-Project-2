@@ -40,8 +40,9 @@ async function loadListing() {
     titleInput.value = listing.title;
     descriptionInput.value = listing.description || "";
     endDateInput.value = new Date(listing.endsAt).toISOString().slice(0, 16);
-    mediaInput.value = listing.media?.join(", ") || "";
-}
+    mediaInput.value = Array.isArray(listing.media)
+    ? listing.media.map(m => m.url || m).join(", ")
+    : "";}
 
 async function updateListing(e) {
     e.preventDefault();
@@ -93,4 +94,3 @@ async function updateListing(e) {
 form.addEventListener("submit", updateListing);
 
 loadListing();
-

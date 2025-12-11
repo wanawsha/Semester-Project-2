@@ -14,10 +14,9 @@ if (!user) {
     window.location.href = "./login.html";
 }
 
-// Pre-fill fields
-avatarInput.value = user.avatar || "";
-bannerInput.value = user.banner || "";
-bioInput.value = user.bio || "";
+avatarInput.value = typeof user.avatar === "string" ? user.avatar : "";
+bannerInput.value = typeof user.banner === "string" ? user.banner : "";
+bioInput.value = typeof user.bio === "string" ? user.bio : "";
 
 async function updateProfile(e) {
     e.preventDefault();
@@ -29,9 +28,7 @@ async function updateProfile(e) {
     };
 
     if (!updatedProfile.avatar && !updatedProfile.banner && !updatedProfile.bio) {
-        const confirmClear = confirm(
-            "You are saving an empty profile. Continue?"
-        );
+        const confirmClear = confirm("You are saving an empty profile. Continue?");
         if (!confirmClear) return;
     }
 
@@ -63,3 +60,4 @@ async function updateProfile(e) {
 }
 
 form.addEventListener("submit", updateProfile);
+
