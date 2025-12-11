@@ -64,7 +64,7 @@ async function createListing(e) {
 
         alert("Listing created successfully!");
 
-        window.location.href = `/pages/listing.html?id=${result.data.id}`;
+        window.location.href = `listing.html?id=${result.data.id}`;
 
     } catch (error) {
         alert("Error: " + error.message);

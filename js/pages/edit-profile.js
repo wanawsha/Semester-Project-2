@@ -11,7 +11,7 @@ const bioInput = document.getElementById("bio");
 
 const user = getStoredUser();
 if (!user) {
-    window.location.href = "./login.html";
+    window.location.href = "login.html";
 }
 
 avatarInput.value = user.avatar?.url || "";
