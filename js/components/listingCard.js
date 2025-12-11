@@ -63,7 +63,6 @@ export function createUserBidCard({ listing, amount, user }) {
     const card = document.createElement("div");
     card.className = "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full";
 
-    // Determine highest bid
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;

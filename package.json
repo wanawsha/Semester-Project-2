@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "build": "tailwindcss -i ./src/input.css -o ./css/output.css",
+  "watch": "tailwindcss -i ./src/input.css -o ./css/output.css --watch"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wanawsha/Semester-Project-2.git"

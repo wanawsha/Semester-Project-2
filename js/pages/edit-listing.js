@@ -45,50 +45,54 @@ async function loadListing() {
     : "";}
 
 async function updateListing(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const updatedListing = {
-        title: titleInput.value.trim(),
-        description: descriptionInput.value.trim(),
-        endsAt: new Date(endDateInput.value).toISOString(),
-        media: mediaInput.value
-            .split(",")
-            .map(url => url.trim())
-            .filter(url => url.length > 0),
-    };
+  const updatedListing = {
+    title: titleInput.value.trim(),
+    description: descriptionInput.value.trim(),
+    endsAt: new Date(endDateInput.value).toISOString(),
+    media: mediaInput.value
+      .split(",")
+      .map(url => url.trim())
+      .filter(url => url.length > 0)
+      .map(url => ({
+        url: url,
+        alt: titleInput.value.trim() || "Listing image",
+      })),
+  };
 
-    if (!updatedListing.title || !updatedListing.description) {
-        alert("Please fill in all fields.");
-        return;
+  if (!updatedListing.title || !updatedListing.description) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (new Date(updatedListing.endsAt) <= new Date()) {
+    alert("End date must be in the future.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/auction/listings/${id}`,
+      {
+        method: "PUT",
+        headers: authHeaders(),
+        body: JSON.stringify(updatedListing),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.errors?.[0]?.message || "Update failed");
     }
 
-    if (new Date(updatedListing.endsAt) <= new Date()) {
-        alert("End date must be in the future.");
-        return;
-    }
+    alert("Listing updated successfully!");
+    window.location.href = `./listing.html?id=${id}`;
 
-    try {
-        const response = await fetch(
-            `https://v2.api.noroff.dev/auction/listings/${id}`,
-            {
-                method: "PUT",
-                headers: authHeaders(),
-                body: JSON.stringify(updatedListing),
-            }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.errors?.[0]?.message || "Update failed");
-        }
-
-        alert("Listing updated successfully!");
-        window.location.href = `./listing.html?id=${id}`;
-
-    } catch (error) {
-        alert("Error: " + error.message);
-    }
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
 }
 
 form.addEventListener("submit", updateListing);

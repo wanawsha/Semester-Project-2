@@ -148,14 +148,10 @@ async function deleteListing(listingId) {
     }
 }
 
-// -------------------------
-// PLACE BID FORM
-// -------------------------
 function setupBidForm(listing) {
     const user = getStoredUser();
     const form = document.getElementById("place-bid-form");
 
-    // Not logged in
     if (!user) {
         form.innerHTML = `
             <a href="./login.html"
@@ -166,13 +162,11 @@ function setupBidForm(listing) {
         return;
     }
 
-    // Cannot bid on your own listing
     if (user.name === listing.seller.name) {
         form.innerHTML = `<p>You cannot bid on your own listing.</p>`;
         return;
     }
 
-    // BID SUBMIT
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -182,7 +176,6 @@ function setupBidForm(listing) {
         }
 
         try {
-            // Submit bid
             const response = await fetch(
                 `https://v2.api.noroff.dev/auction/listings/${listing.id}/bids`,
                 {
@@ -197,7 +190,6 @@ function setupBidForm(listing) {
                 throw new Error(result.errors?.[0]?.message || "Could not place bid");
             }
 
-            // 🔥 NEW — Update credits immediately
             const profileRes = await fetch(
                 `https://v2.api.noroff.dev/auction/profiles/${user.name}`,
                 { headers: authHeaders() }
@@ -205,15 +197,13 @@ function setupBidForm(listing) {
 
             const profileData = await profileRes.json();
 
-            // Store updated credits locally
             storeCredits(profileData.data.credits);
             storeUser({ ...user, credits: profileData.data.credits });
 
-            // Re-render navbar with fresh credits
             setupNavbar();
 
             alert("Bid placed successfully!");
-            loadListing(); // reload UI
+            loadListing();
 
         } catch (error) {
             alert(error.message);
