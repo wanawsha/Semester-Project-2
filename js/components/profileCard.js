@@ -1,4 +1,5 @@
 import { deleteListing } from "../api/listings.js";
+import { getStoredUser } from "../utils/storage.js";
 
 export function createProfileCard(listing) {
     const card = document.createElement("div");
@@ -22,7 +23,10 @@ export function createProfileCard(listing) {
 
     const seller = document.createElement("p");
     seller.className = "text-subtext text-sm mt-1";
-    seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
+
+    const currentUser = getStoredUser();
+    seller.textContent = "Created by me";
+    seller.classList.add("italic");
     card.appendChild(seller);
 
     const desc = document.createElement("p");

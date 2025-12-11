@@ -31,8 +31,11 @@ async function loadListing() {
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
 
-    document.getElementById("listing-highest-bid").textContent =
-        `Highest bid: ${highestBid} Credits`;
+    document.getElementById("listing-highest-bid").innerHTML = `
+    <span>Highest bid:</span>
+    <span class="mx-2 text-accent font-heading text-lg">${highestBid}</span>
+    <span">Credits</span>
+    `;
 
     const mainImageEl = document.getElementById("listing-main-image");
     const mainImage =
@@ -70,6 +73,7 @@ async function loadListing() {
 
 function renderBidHistory(bids = []) {
     const bidHistoryEl = document.getElementById("bid-history");
+    const currentUser = getStoredUser();
 
     if (!bids.length) {
         bidHistoryEl.innerHTML = `<p class="text-subtext">No bids yet.</p>`;
@@ -80,20 +84,32 @@ function renderBidHistory(bids = []) {
 
     bids
         .sort((a, b) => b.amount - a.amount)
-        .forEach(bid => {
+        .forEach((bid) => {
+            const isMyBid = currentUser && bid.bidder?.name === currentUser.name;
+
             const row = document.createElement("div");
-            row.className =
-                "grid grid-cols-3 bg-grayMain/20 rounded p-4 mb-3 text-sm font-body";
+            row.className = `
+                grid grid-cols-3 rounded p-4 mb-3 text-sm font-body
+                ${isMyBid ? "bg-primary/20 border border-primary" : "bg-grayMain/20"}
+            `;
 
             row.innerHTML = `
-                <span class="font-heading">${bid.bidder?.name || "Unknown"}</span>
-                <span class="text-subtext">${new Date(bid.created).toLocaleDateString("en-GB")}</span>
-                <span class="text-accent font-heading text-right">${bid.amount} CREDITS</span>
+                <span class="font-heading ${isMyBid ? "text-primary" : ""}">
+                    ${bid.bidder?.name || "Unknown"}
+                    ${isMyBid ? " (My bid)" : ""}
+                </span>
+                <span class="text-subtext">
+                    ${new Date(bid.created).toLocaleDateString("en-GB")}
+                </span>
+                <span class="text-accent font-heading text-right">
+                    ${bid.amount} CREDITS
+                </span>
             `;
 
             bidHistoryEl.appendChild(row);
         });
 }
+
 
 function setupOwnerActions(listing) {
     const user = getStoredUser();
@@ -122,7 +138,10 @@ function setupBidForm(listing) {
     const user = getStoredUser();
     const form = document.getElementById("place-bid-form");
 
+    form.classList.add("hidden");
+
     if (!user) {
+        form.classList.remove("hidden");
         form.innerHTML = `
             <a href="./login.html"
                class="mx-auto block w-60 bg-primary text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
@@ -133,9 +152,10 @@ function setupBidForm(listing) {
     }
 
     if (user.name === listing.seller.name) {
-        form.innerHTML = `<p>You cannot bid on your own listing.</p>`;
         return;
     }
+
+    form.classList.remove("hidden");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -160,21 +180,8 @@ function setupBidForm(listing) {
                 throw new Error(result.errors?.[0]?.message || "Could not place bid");
             }
 
-            const profileRes = await fetch(
-                `https://v2.api.noroff.dev/auction/profiles/${user.name}`,
-                { headers: authHeaders() }
-            );
-
-            const profileData = await profileRes.json();
-
-            storeCredits(profileData.data.credits);
-            storeUser({ ...user, credits: profileData.data.credits });
-
-            setupNavbar();
-
             alert("Bid placed successfully!");
             loadListing();
-
         } catch (error) {
             alert(error.message);
         }

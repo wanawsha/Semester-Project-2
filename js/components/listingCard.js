@@ -59,9 +59,10 @@ export function createListingCard(listing) {
 
 
 
-export function createUserBidCard({ listing, amount, user }) {
+export function createUserBidCard({ listing, amount }) {
     const card = document.createElement("div");
-    card.className = "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full";
+    card.className =
+        "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
 
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map(b => b.amount))
@@ -69,6 +70,7 @@ export function createUserBidCard({ listing, amount, user }) {
 
     const isWinning = amount === highestBid;
 
+    // ✅ Winning badge
     if (isWinning) {
         const badge = document.createElement("div");
         badge.textContent = "YOU ARE WINNING";
@@ -79,35 +81,52 @@ export function createUserBidCard({ listing, amount, user }) {
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
+
     const firstImage =
         listing.media?.length && listing.media[0].url
             ? listing.media[0].url
             : "https://via.placeholder.com/300?text=No+Image";
+
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
 
+    const fullTitle = listing.title || "";
+    const shortTitle =
+        fullTitle.length > 20 ? fullTitle.slice(0, 20) + "..." : fullTitle;
+
     const title = document.createElement("h3");
     title.className = "mt-6 font-heading text-xl text-dark";
-    title.textContent = listing.title;
+    title.textContent = shortTitle;
     card.appendChild(title);
 
     const seller = document.createElement("p");
-    seller.className = "text-subtext text-sm mt-1";
+    seller.className = "text-subtext text-sm mt-1 break-all";
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
     const credit = document.createElement("p");
-    credit.className = "text-accent font-heading text-xl mt-6";
-    credit.textContent = `${amount} Credits`;
+    credit.className = "mt-6";
+    credit.innerHTML = `
+        <span class="text-subtext font-heading text-sm block">
+            Your bid:
+        </span>
+        <span class="text-accent font-heading text-xl">
+            ${amount} Credits
+        </span>
+    `;
     card.appendChild(credit);
+
+    const bottom = document.createElement("div");
+    bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
     btn.href = `/pages/listing.html?id=${listing.id}`;
     btn.textContent = "VIEW DETAILS";
     btn.className =
-        "block mt-auto w-full text-center bg-button text-white py-3 rounded-md font-heading hover:opacity-80 transition";
+        "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
 
-    card.appendChild(btn);
+    bottom.appendChild(btn);
+    card.appendChild(bottom);
 
     return card;
 }
