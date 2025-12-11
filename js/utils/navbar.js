@@ -38,6 +38,9 @@ export function setupNavbar() {
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
             logout();
+            
+            window.location.href = "/pages/login.html";
+
         });
     }
 }

@@ -8,11 +8,23 @@ const headers = {
     "X-Noroff-API-Key": API_KEY,
 };
 
-export async function getAllListings({ includeSeller = true, includeBids = true } = {}) {
+export async function getAllListings({
+    includeSeller = true,
+    includeBids = true,
+    limit = 24,
+    page = 1,
+    sort = "created",
+    sortOrder = "desc",
+    } = {}) {
     const query = [];
 
     if (includeSeller) query.push("_seller=true");
     if (includeBids) query.push("_bids=true");
+
+    query.push(`limit=${limit}`);
+    query.push(`page=${page}`);
+    query.push(`sort=${sort}`);
+    query.push(`sortOrder=${sortOrder}`);
 
     const url = `${BASE_URL}?${query.join("&")}`;
 
@@ -21,15 +33,17 @@ export async function getAllListings({ includeSeller = true, includeBids = true 
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(result.errors?.[0]?.message || "Failed to fetch listings");
+        throw new Error(result.errors?.[0]?.message || "Failed to fetch listings");
         }
 
-        return result.data || [];
+        return result;
     } catch (error) {
         console.error("Error fetching listings:", error);
-        return [];
+        return { data: [], meta: {} };
     }
 }
+
+
 
 export async function getListingById(id, includeRelations = true) {
     let url = `${BASE_URL}/${id}`;

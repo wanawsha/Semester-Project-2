@@ -6,20 +6,47 @@ setupNavbar();
 
 const listingsContainer = document.getElementById("listings-container");
 const searchInput = document.getElementById("search-input");
+const loadMoreBtn = document.getElementById("load-more");
+
+let currentPage = 1;
+const LIMIT = 21;
+let hasMore = true;
 
 let allListings = [];
 
-async function loadListings() {
-    listingsContainer.innerHTML = "<p>Loading listings...</p>";
+async function loadListings(reset = false) {
 
-    allListings = await getAllListings();
+    if (reset) {
+        currentPage = 1;
+        hasMore = true;
+        allListings = [];
+        listingsContainer.innerHTML = "";
+        loadMoreBtn.classList.remove("hidden");
+    }
 
-    if (!allListings || allListings.length === 0) {
-        listingsContainer.innerHTML = "<p>No listings available.</p>";
+    if (!hasMore) return;
+
+    const result = await getAllListings({
+        page: currentPage,
+        limit: LIMIT,
+    });
+
+    const listings = result.data;
+
+    if (!listings || listings.length === 0) {
+        hasMore = false;
+        loadMoreBtn.classList.add("hidden");
         return;
     }
 
-    renderListings(allListings);
+    allListings = [...allListings, ...listings];
+
+    listings.forEach((listing) => {
+        const card = createListingCard(listing);
+        listingsContainer.appendChild(card);
+    });
+
+    currentPage++;
 }
 
 function renderListings(listings) {
@@ -30,21 +57,26 @@ function renderListings(listings) {
         return;
     }
 
-    listings.forEach(listing => {
+    listings.forEach((listing) => {
         const card = createListingCard(listing);
         listingsContainer.appendChild(card);
     });
-}
+    }
 
-searchInput.addEventListener("input", () => {
+    searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
 
-    const filtered = allListings.filter(listing =>
+    const filtered = allListings.filter((listing) =>
         listing.title.toLowerCase().includes(query)
     );
 
     renderListings(filtered);
+    });
+
+    loadMoreBtn.addEventListener("click", () => {
+    loadListings();
 });
 
-loadListings();
+loadListings(true);
+
 
