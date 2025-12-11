@@ -128,7 +128,7 @@ function setupOwnerActions(listing) {
             .addEventListener("click", async () => {
             const success = await deleteListing(listing.id);
             if (success) {
-                window.location.href = "/pages/profile.html";
+                window.location.href = "profile.html";
             }
         });
     }
