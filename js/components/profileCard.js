@@ -63,7 +63,6 @@ export function createProfileCard(listing) {
     btnRow.appendChild(deleteBtn);
     card.appendChild(btnRow);
 
-    // VIEW DETAILS — SAME BUTTON AS INDEX
     const viewBtn = document.createElement("a");
     viewBtn.href = `/pages/listing.html?id=${listing.id}`;
     viewBtn.textContent = "VIEW DETAILS";
