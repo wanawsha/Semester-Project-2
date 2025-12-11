@@ -23,10 +23,6 @@
             </nav>
         </div>
     </header>
-    <section id="search-section" class="max-w-6xl mx-auto mt-6 px-4">
-        <label for="search-input" class="text-sm text-subtext block mb-1">Search for a listing</label>
-        <input type="text" id="search-input" placeholder="Search by title..." class="w-full bg-white border border-grayMain rounded px-3 py-2 focus:outline-primary">
-    </section>
     <main class="max-w-6xl mx-auto px-4 mt-10">
         <section class="bg-white shadow-md rounded-md p-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
@@ -37,7 +33,7 @@
                     <h1 id="listing-title" class="font-heading text-2xl mb-3"></h1>
                     <p id="listing-description" class="text-subtext text-sm mb-6 max-w-md leading-relaxed"></p>
                     <p class="text-sm mb-2">Sold by: <span id="listing-seller" class="font-semibold"></span></p>
-                    <p class="text-sm mb-2">Highest Bid: <span id="listing-highest-bid" class="font-semibold"></span></p>
+                    <p class="text-sm mb-2"><span id="listing-highest-bid" class="font-semibold"></span></p>
                     <p class="text-sm">Ends at: <span id="listing-end-date" class="font-semibold"></span></p>
                 </div>
             </div>
@@ -51,16 +47,16 @@
             <div id="bid-history" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </section>
     </main>
-    <footer class="bg-white mt-16 border-t border-grayMain">
-        <div class="max-w-6xl mx-auto py-6 px-4">
-            <h2 class="font-heading text-xl">Bidster</h2>
-            <div class="flex gap-4 mt-3">
-                <a href="../index.html" class="hover:underline">Home</a>
-                <a href="./register.html" class="hover:underline">Register</a>
-                <a href="./login.html" class="hover:underline">Login</a>
-            </div>
+<footer class="bg-white mt-20 border-t">
+    <div class="max-w-6xl mx-auto text-center py-6">
+        <h2 class="font-heading text-xl mb-3">Bidster</h2>
+        <div class="flex justify-center gap-6 text-sm">
+            <a href="../index.html" class="hover:underline">Home</a>
+            <a href="./register.html" class="hover:underline">Register</a>
+            <a href="./login.html" class="hover:underline">Login</a>
         </div>
-    </footer>
+    </div>
+</footer>
     <script type="module" src="../js/pages/listing.js"></script>
 </body>
 </html>

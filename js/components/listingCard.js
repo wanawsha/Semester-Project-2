@@ -40,7 +40,7 @@ export function createListingCard(listing) {
 
     const price = document.createElement("p");
     price.className = "text-accent font-heading text-xl mt-6";
-    price.textContent = `${highestBid} Credits`;
+    price.textContent = `Highest Bid: ${highestBid} Credits`;
     card.appendChild(price);
 
     const bottom = document.createElement("div");
@@ -59,18 +59,31 @@ export function createListingCard(listing) {
 
 
 
-export function createUserBidCard({ listing, amount }) {
+export function createUserBidCard({ listing, amount, user }) {
     const card = document.createElement("div");
-    card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full";
+    card.className = "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full";
+
+    // Determine highest bid
+    const highestBid = listing.bids?.length
+        ? Math.max(...listing.bids.map(b => b.amount))
+        : 0;
+
+    const isWinning = amount === highestBid;
+
+    if (isWinning) {
+        const badge = document.createElement("div");
+        badge.textContent = "YOU ARE WINNING";
+        badge.className =
+            "absolute top-3 right-3 bg-accent text-white text-xs font-heading px-3 py-1 rounded-md shadow";
+        card.appendChild(badge);
+    }
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
-
     const firstImage =
         listing.media?.length && listing.media[0].url
             ? listing.media[0].url
-            : listing.media?.[0] || "https://via.placeholder.com/300?text=No+Image";
-
+            : "https://via.placeholder.com/300?text=No+Image";
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
 
@@ -84,26 +97,22 @@ export function createUserBidCard({ listing, amount }) {
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
-    const desc = document.createElement("p");
-    desc.className = "text-subtext text-sm mt-4";
-    const raw = String(listing.description || "");
-    desc.textContent = raw.length > 80 ? raw.slice(0, 80) + "..." : raw;
-    card.appendChild(desc);
-
-    const bidEl = document.createElement("p");
-    bidEl.className = "text-accent font-heading text-xl mt-6";
-    bidEl.textContent = `Your bid: ${amount} Credits`;
-    card.appendChild(bidEl);
+    const credit = document.createElement("p");
+    credit.className = "text-accent font-heading text-xl mt-6";
+    credit.textContent = `${amount} Credits`;
+    card.appendChild(credit);
 
     const btn = document.createElement("a");
     btn.href = `/pages/listing.html?id=${listing.id}`;
     btn.textContent = "VIEW DETAILS";
-    btn.className ="block mt-auto w-full text-center bg-button text-white py-3 rounded-md font-heading hover:opacity-80 transition";
+    btn.className =
+        "block mt-auto w-full text-center bg-button text-white py-3 rounded-md font-heading hover:opacity-80 transition";
 
     card.appendChild(btn);
 
     return card;
 }
+
 
 
 

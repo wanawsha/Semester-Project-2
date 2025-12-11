@@ -1,9 +1,25 @@
 #home-logo {
     font-style: italic;
     font-weight: bold;
-    font-size:xx-large;
+    font-size: xxx-large;
     text-transform: uppercase;
+    display: inline-block;
+    transition: all 0.3s ease;
 }
+
+#home-logo:hover {
+    animation: wave 0.9s ease infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-4px) rotate(-2deg); }
+    50% { transform: translateY(2px) rotate(2deg); }
+    75% { transform: translateY(-3px) rotate(-1deg); }
+    100% { transform: translateY(0); }
+}
+
+
 
 #search-section label {
     font-weight: bold;
@@ -12,11 +28,16 @@
 }
 
 #nav-credits {
-    transition: all 0.35s ease;
+    transition: all 0.4s ease;
 }
 
 #nav-credits:hover {
-    transform: scale(1.1) translateY(-2px);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.25),
-            0 0 20px var(--accent);
+    transform: scale(1.12) translateY(-2px);
+    box-shadow:
+        0 0 10px #DBD096,
+        0 0 20px #DBD096,
+        0 0 35px #DBD096,
+        inset 0 0 10px #DBD096;
 }
+
+

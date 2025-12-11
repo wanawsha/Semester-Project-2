@@ -31,8 +31,10 @@ async function loadProfile() {
         bioEl.textContent = profile.bio || "No bio yet.";
         creditsEl.textContent = `${profile.credits} Credits`;
 
-        avatarEl.style.backgroundImage = `url('${profile.avatar || "/images/avatar-placeholder.png"}')`;
-        bannerEl.style.backgroundImage = `url('${profile.banner || "/images/banner-placeholder.jpg"}')`;
+        avatarEl.src = profile.avatar?.url || "/images/avatar-placeholder.png";
+
+        bannerEl.style.backgroundImage = `url('${profile.banner?.url || "/images/banner-placeholder.jpg"}')
+        `;
 
         loadMyListings(profile.name);
         loadMyBids(profile.name);

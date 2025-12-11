@@ -3,67 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/output.css">
-    <link rel="stylesheet" href="../css/style.css">
     <title>Bidster - Edit Profile</title>
 </head>
-<body>
-<header>
-    <a href="../index.html" id="home-logo">Bidster</a>
-    <nav>
-        <a href="./create.html" id="create-link">+ Create Listing</a>
-        <a href="./login.html" id="login-link">Login</a>
-        <a href="./register.html" id="register-link">Register</a>
-        <a href="./profile.html" id="profile-link">My Profile</a>
-        <a href="#" id="logout-btn">Log Out</a>
-    </nav>
-    <div id="nav-credits">0 Credits</div>
-</header>
-    <section id="search-section">
-        <label for="search-input">Search for a listing</label>
-        <input type="text" id="search-input" placeholder="Search by title..." />
-    </section>
-    <main>
-        <section id="edit-profile-section">
-            <h1>Edit Profile</h1>
-            <form id="edit-profile-form">
+<body class="bg-bg font-body text-dark">
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
+            <a href="../index.html" id="home-logo" class="text-2xl font-heading text-dark">
+                Bidster
+            </a>
+            <nav class="flex items-center gap-6">
+                <a href="./create.html" id="create-link" class="hidden bg-primary text-white px-4 py-2 rounded hover:opacity-90 transition">+ Create Listing
+                </a>
+                <a href="./login.html" id="login-link" class="text-button hover:underline">Login</a>
+                <a href="./register.html" id="register-link" class="text-button hover:underline">Register</a>
+                <a href="./profile.html" id="profile-link" class="hidden text-dark hover:underline">My Profile</a>
+                <button id="logout-btn" class="hidden text-dark hover:underline">Log Out</button>
+                <div id="nav-credits" class="hidden bg-accent text-white px-3 py-1 rounded font-semibold">0 Credits
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="flex justify-center mt-10 px-4">
+        <section class="bg-white w-full max-w-2xl rounded-md shadow-md p-10">
+            <h1 class="font-heading text-xl mb-10 font-bold">Edit Profile</h1>
+            <form id="edit-profile-form" class="space-y-10">
                 <div>
-                    <label for="avatar-url">Avatar URL</label>
-                    <input 
-                        type="url" 
-                        id="avatar-url" 
-                        name="avatar" 
-                        placeholder="Enter avatar image URL"
-                    >
+                    <label for="avatar-url"
+                        class="block text-xs font-heading font-bold mb-2 tracking-wide">Avatar URL
+                    </label>
+                    <input type="url" id="avatar-url" placeholder="Enter avatar image URL" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/>
+                    <img id="avatar-preview" class="hidden mt-4 w-24 h-24 rounded-full object-cover border border-grayMain"/>
+                    <p id="avatar-error" class="hidden text-red-500 text-xs mt-2"></p>
                 </div>
                 <div>
-                    <label for="banner-url">Banner URL</label>
-                    <input 
-                        type="url" 
-                        id="banner-url" 
-                        name="banner" 
-                        placeholder="Enter banner image URL"
-                    >
+                    <label for="banner-url"
+                        class="block text-xs font-heading font-bold mb-2 tracking-wide">Banner URL
+                    </label>
+                    <input type="url" id="banner-url" placeholder="Enter banner image URL" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/>
+                    <img id="banner-preview" class="hidden mt-4 w-full h-28 rounded-md object-cover border border-grayMain"/>
+                    <p id="banner-error" class="hidden text-red-500 text-xs mt-2"></p>
                 </div>
                 <div>
-                    <label for="bio">Bio</label>
-                    <textarea 
-                        id="bio" 
-                        name="bio" 
-                        placeholder="Write your bio here..."
-                    ></textarea>
+                    <label for="bio" class="block text-xs font-heading font-bold mb-2 tracking-wide">Bio
+                    </label>
+                    <textarea id="bio" placeholder="Write your bio here..." class="w-full bg-transparent border-b border-grayMain py-2 h-20 resize-none focus:outline-none">
+                    </textarea>
                 </div>
-                <button type="submit">Save Changes</button>
+                <button type="submit" class="w-full bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-90 transition">Save Changes
+                </button>
             </form>
         </section>
     </main>
-    <footer>
-        <h2>Bidster</h2>
-        <a href="../index.html">Home</a>
-        <a href="./register.html">Register</a>
-        <a href="./login.html">Login</a>
+    <footer class="bg-white mt-20 border-t">
+        <div class="max-w-6xl mx-auto text-center py-6">
+            <h2 class="font-heading text-xl mb-3">Bidster</h2>
+            <div class="flex justify-center gap-6 text-sm">
+                <a href="../index.html" class="hover:underline">Home</a>
+                <a href="./register.html" class="hover:underline">Register</a>
+                <a href="./login.html" class="hover:underline">Login</a>
+            </div>
+        </div>
     </footer>
     <script type="module" src="../js/pages/edit-profile.js"></script>
 </body>
 </html>
+

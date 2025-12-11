@@ -14,22 +14,34 @@ if (!user) {
     window.location.href = "./login.html";
 }
 
-avatarInput.value = typeof user.avatar === "string" ? user.avatar : "";
-bannerInput.value = typeof user.banner === "string" ? user.banner : "";
-bioInput.value = typeof user.bio === "string" ? user.bio : "";
+avatarInput.value = user.avatar?.url || "";
+bannerInput.value = user.banner?.url || "";
+bioInput.value = user.bio || "";
 
 async function updateProfile(e) {
     e.preventDefault();
 
-    const updatedProfile = {
-        avatar: avatarInput.value.trim() || null,
-        banner: bannerInput.value.trim() || null,
-        bio: bioInput.value.trim() || null,
-    };
+    const updatedProfile = {};
 
-    if (!updatedProfile.avatar && !updatedProfile.banner && !updatedProfile.bio) {
-        const confirmClear = confirm("You are saving an empty profile. Continue?");
-        if (!confirmClear) return;
+    const avatarUrl = avatarInput.value.trim();
+    const bannerUrl = bannerInput.value.trim();
+    const bio = bioInput.value.trim();
+
+    if (avatarUrl) {
+        updatedProfile.avatar = { url: avatarUrl };
+    }
+
+    if (bannerUrl) {
+        updatedProfile.banner = { url: bannerUrl };
+    }
+
+    if (bio) {
+        updatedProfile.bio = bio;
+    }
+
+    if (Object.keys(updatedProfile).length === 0) {
+        alert("Nothing to update.");
+        return;
     }
 
     try {
@@ -60,4 +72,6 @@ async function updateProfile(e) {
 }
 
 form.addEventListener("submit", updateProfile);
+
+
 
