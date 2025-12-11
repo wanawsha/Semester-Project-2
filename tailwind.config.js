@@ -19,7 +19,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/lline-clamp'),
+  ],
 }
 
 

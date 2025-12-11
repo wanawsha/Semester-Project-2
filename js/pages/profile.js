@@ -1,6 +1,8 @@
 import { getStoredUser } from "../utils/storage.js";
 import { setupNavbar } from "../utils/navbar.js";
 import { getProfile, getUserListings } from "../api/profileApi.js";
+import { createProfileCard } from "../components/profileCard.js";
+import { createUserBidCard } from "../components/listingCard.js";
 
 setupNavbar();
 
@@ -49,17 +51,10 @@ async function loadMyListings(username) {
             return;
         }
 
+        myListingsContainer.innerHTML = "";
+
         listings.forEach(listing => {
-            const card = document.createElement("a");
-            card.href = `./listing.html?id=${listing.id}`;
-            card.classList.add("profile-listing-card");
-
-            card.innerHTML = `
-                <div class="profile-listing-image"
-                     style="background-image:url('${listing.media?.[0] || "/images/no-image.jpg"}')"></div>
-                <h3>${listing.title}</h3>
-            `;
-
+            const card = createProfileCard(listing);
             myListingsContainer.appendChild(card);
         });
 
@@ -91,20 +86,15 @@ async function loadMyBids(username) {
             return;
         }
 
+        myBidsContainer.innerHTML = "";
+
         myBids.forEach(listing => {
-            const highestBid = listing.bids.length
-                ? Math.max(...listing.bids.map(b => b.amount))
-                : 0;
+            const userBid = listing.bids.find(b => b.bidder?.name === username);
 
-            const card = document.createElement("a");
-            card.href = `./listing.html?id=${listing.id}`;
-            card.classList.add("profile-bid-card");
-
-            card.innerHTML = `
-                <h3>${listing.title}</h3>
-                <p>You have bid on this auction</p>
-                <p>Current highest bid: ${highestBid} Credits</p>
-            `;
+            const card = createUserBidCard({
+                listing,
+                amount: userBid.amount,
+            });
 
             myBidsContainer.appendChild(card);
         });
@@ -114,6 +104,40 @@ async function loadMyBids(username) {
     }
 }
 
+document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button[data-id]");
+    if (!btn) return;
+
+    const id = btn.dataset.id;
+
+    if (!confirm("Are you sure you want to delete this listing?")) return;
+
+    try {
+        const response = await fetch(
+            `https://v2.api.noroff.dev/auction/listings/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${user.accessToken}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to delete listing.");
+        }
+
+        btn.closest(".profile-listing-card")?.remove();
+
+        alert("Listing deleted!");
+
+    } catch (error) {
+        alert(error.message);
+    }
+});
+
 loadProfile();
+
 
 

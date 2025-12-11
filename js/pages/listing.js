@@ -12,6 +12,7 @@ const id = params.get("id");
 
 
 async function loadListing() {
+    //Remove console log
     console.log("bid history element:", document.getElementById("bid-history"));
 
     const listing = await getListingById(id); 
@@ -26,7 +27,7 @@ async function loadListing() {
         listing.seller?.name || "Unknown";
 
     document.getElementById("listing-end-date").textContent =
-        "Ends at: " + new Date(listing.endsAt).toLocaleString();
+        "" + new Date(listing.endsAt).toLocaleString();
 
     document.getElementById("listing-description").textContent =
         listing.description || "";
