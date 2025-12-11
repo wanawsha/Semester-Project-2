@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Bidster - Edit Profile</title>
 </head>
@@ -30,10 +31,9 @@
             <h1 class="font-heading text-xl mb-10 font-bold">Edit Profile</h1>
             <form id="edit-profile-form" class="space-y-10">
                 <div>
-                    <label for="avatar-url"
-                        class="block text-xs font-heading font-bold mb-2 tracking-wide">Avatar URL
+                    <label for="avatar-url" class="block text-xs font-heading font-bold mb-2 tracking-wide">Avatar URL
                     </label>
-                    <input type="url" id="avatar-url" placeholder="Enter avatar image URL" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/>
+                    <input type="url" id="avatar-url" placeholder="Direct image URL (jpg, png, webp)" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/> <p class="text-xs text-subtext mt-1">Must be a direct image link (ends with .jpg, .png, .webp)</p>
                     <img id="avatar-preview" class="hidden mt-4 w-24 h-24 rounded-full object-cover border border-grayMain"/>
                     <p id="avatar-error" class="hidden text-red-500 text-xs mt-2"></p>
                 </div>
@@ -41,7 +41,8 @@
                     <label for="banner-url"
                         class="block text-xs font-heading font-bold mb-2 tracking-wide">Banner URL
                     </label>
-                    <input type="url" id="banner-url" placeholder="Enter banner image URL" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/>
+                    <input type="url" id="banner-url" placeholder="Direct image URL (jpg, png, webp)" class="w-full bg-transparent border-b border-grayMain py-2 focus:outline-none"/>
+                    <p class="text-xs text-subtext mt-1">Use a wide image for best results (jpg, png, webp)</p>
                     <img id="banner-preview" class="hidden mt-4 w-full h-28 rounded-md object-cover border border-grayMain"/>
                     <p id="banner-error" class="hidden text-red-500 text-xs mt-2"></p>
                 </div>

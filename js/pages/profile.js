@@ -31,10 +31,19 @@ async function loadProfile() {
         bioEl.textContent = profile.bio || "No bio yet.";
         creditsEl.textContent = `${profile.credits} Credits`;
 
-        avatarEl.src = profile.avatar?.url || "/images/avatar-placeholder.png";
+        const avatarUrl =
+            typeof profile.avatar === "string"
+                ? profile.avatar
+                : profile.avatar?.url;
 
-        bannerEl.style.backgroundImage = `url('${profile.banner?.url || "/images/banner-placeholder.jpg"}')
-        `;
+        avatarEl.style.backgroundImage = `url('${
+            avatarUrl || "../images/profileImg-placeholder.jpeg"
+        }')`;
+
+
+        bannerEl.style.backgroundImage = `url('${
+            profile.banner?.url || "/images/banner-placeholder.jpg"
+        }')`;
 
         loadMyListings(profile.name);
         loadMyBids(profile.name);
@@ -43,6 +52,7 @@ async function loadProfile() {
         alert("Could not load profile: " + error.message);
     }
 }
+
 
 async function loadMyListings(username) {
     try {
