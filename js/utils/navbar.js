@@ -39,7 +39,7 @@ export function setupNavbar() {
             e.preventDefault();
             logout();
             
-            window.location.href = "login.html";
+            window.location.href = "/pages/login.html";
 
         });
     }

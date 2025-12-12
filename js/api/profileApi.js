@@ -25,7 +25,7 @@ export async function getUserListings(username) {
     try {
         const response = await fetch(
             `${PROFILE_BASE}/${username}/listings?_bids=true`,
-            { headers: authHeaders() } // FIXED
+            { headers: authHeaders() }
         );
 
         const result = await response.json();
