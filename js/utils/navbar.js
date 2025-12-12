@@ -45,6 +45,49 @@ export function setupNavbar() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuOverlay = document.getElementById("menu-overlay");
+  const iconMenu = document.getElementById("icon-menu");
+  const iconClose = document.getElementById("icon-close");
 
+  if (!menuToggle || !mobileMenu || !menuOverlay) return;
 
+  function openMenu() {
+    mobileMenu.classList.remove("translate-x-full");
+    menuOverlay.classList.remove("hidden");
+
+    iconMenu?.classList.add("hidden");
+    iconClose?.classList.remove("hidden");
+
+    menuToggle.setAttribute("aria-expanded", "true");
+    mobileMenu.setAttribute("aria-hidden", "false");
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.add("translate-x-full");
+    menuOverlay.classList.add("hidden");
+
+    iconMenu?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+
+    menuToggle.setAttribute("aria-expanded", "false");
+    mobileMenu.setAttribute("aria-hidden", "true");
+  }
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  menuOverlay.addEventListener("click", closeMenu);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+});
 
