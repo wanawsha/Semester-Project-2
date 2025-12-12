@@ -19,9 +19,8 @@ const myBidsContainer = document.getElementById("my-bids-container");
 const user = getStoredUser();
 
 if (!user) {
-    window.location.href = "login.html";
-} else {
-    loadProfile();
+    window.location.href = "/pages/login.html";
+    return;
 }
 
 async function loadProfile() {
@@ -151,6 +150,7 @@ document.addEventListener("click", async (e) => {
     }
 });
 
+loadProfile();
 
 
 
