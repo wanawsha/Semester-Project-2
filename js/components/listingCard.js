@@ -1,8 +1,20 @@
-const isRootPage = !window.location.pathname.includes("/pages/");
+function getListingUrl(id) {
+    const path = window.location.pathname;
+
+    const isIndex =
+        path.endsWith("index.html") ||
+        path === "/" ||
+        path.endsWith("/");
+
+    return isIndex
+        ? `pages/listing.html?id=${id}`
+        : `listing.html?id=${id}`;
+}
 
 export function createListingCard(listing) {
     const card = document.createElement("div");
-    card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
+    card.className =
+        "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
@@ -15,12 +27,12 @@ export function createListingCard(listing) {
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
 
-    const fullTitle = listing.title || "";
-    const shortTitle = fullTitle.length > 20 ? fullTitle.slice(0, 20) + "..." : fullTitle;
-
     const title = document.createElement("h3");
     title.className = "mt-6 font-heading text-xl text-dark";
-    title.textContent = shortTitle;
+    title.textContent =
+        listing.title.length > 20
+            ? listing.title.slice(0, 20) + "..."
+            : listing.title;
     card.appendChild(title);
 
     const seller = document.createElement("p");
@@ -28,12 +40,12 @@ export function createListingCard(listing) {
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
-    const fullDesc = listing.description || "";
-    const shortDesc = fullDesc.length > 80 ? fullDesc.slice(0, 23) + "..." : fullDesc;
-
     const description = document.createElement("p");
     description.className = "text-subtext text-sm mt-4 break-all";
-    description.textContent = shortDesc;
+    description.textContent =
+        listing.description?.length > 80
+            ? listing.description.slice(0, 80) + "..."
+            : listing.description || "";
     card.appendChild(description);
 
     const highestBid = listing.bids?.length
@@ -49,20 +61,16 @@ export function createListingCard(listing) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.className ="block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
-    btn.href = isRootPage
-    ? `pages/listing.html?id=${listing.id}`
-    : `listing.html?id=${listing.id}`;
-
+    btn.href = getListingUrl(listing.id);
     btn.textContent = "VIEW DETAILS";
+    btn.className =
+        "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
 
     bottom.appendChild(btn);
     card.appendChild(bottom);
 
     return card;
 }
-
-
 
 export function createUserBidCard({ listing, amount }) {
     const card = document.createElement("div");
@@ -73,9 +81,7 @@ export function createUserBidCard({ listing, amount }) {
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
 
-    const isWinning = amount === highestBid;
-
-    if (isWinning) {
+    if (amount === highestBid) {
         const badge = document.createElement("div");
         badge.textContent = "YOU ARE WINNING";
         badge.className =
@@ -94,13 +100,12 @@ export function createUserBidCard({ listing, amount }) {
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
 
-    const fullTitle = listing.title || "";
-    const shortTitle =
-        fullTitle.length > 20 ? fullTitle.slice(0, 20) + "..." : fullTitle;
-
     const title = document.createElement("h3");
     title.className = "mt-6 font-heading text-xl text-dark";
-    title.textContent = shortTitle;
+    title.textContent =
+        listing.title.length > 20
+            ? listing.title.slice(0, 20) + "..."
+            : listing.title;
     card.appendChild(title);
 
     const seller = document.createElement("p");
@@ -111,12 +116,8 @@ export function createUserBidCard({ listing, amount }) {
     const credit = document.createElement("p");
     credit.className = "mt-6";
     credit.innerHTML = `
-        <span class="text-subtext font-heading text-sm block">
-            Your bid:
-        </span>
-        <span class="text-accent font-heading text-xl">
-            ${amount} Credits
-        </span>
+        <span class="text-subtext font-heading text-sm block">Your bid:</span>
+        <span class="text-accent font-heading text-xl">${amount} Credits</span>
     `;
     card.appendChild(credit);
 
@@ -124,9 +125,7 @@ export function createUserBidCard({ listing, amount }) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = isRootPage
-    ? `pages/listing.html?id=${listing.id}`
-    : `listing.html?id=${listing.id}`;
+    btn.href = getListingUrl(listing.id);
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
@@ -136,6 +135,8 @@ export function createUserBidCard({ listing, amount }) {
 
     return card;
 }
+
+
 
 
 
