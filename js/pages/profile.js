@@ -20,7 +20,9 @@ const user = getStoredUser();
 
 if (!user) {
     window.location.href = "login.html";
+    return; 
 }
+
 
 async function loadProfile() {
     try {
