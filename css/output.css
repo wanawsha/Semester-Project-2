@@ -716,6 +716,17 @@ video {
   margin-bottom: 2rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .block {
   display: block;
 }
@@ -774,6 +785,10 @@ video {
 
 .h-10 {
   height: 2.5rem;
+}
+
+.h-72 {
+  height: 18rem;
 }
 
 .w-10\/12 {
@@ -1452,6 +1467,10 @@ video {
     height: auto;
   }
 
+  .md\:h-96 {
+    height: 24rem;
+  }
+
   .md\:w-auto {
     width: auto;
   }
@@ -1510,6 +1529,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:h-\[32rem\] {
+    height: 32rem;
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

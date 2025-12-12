@@ -26,6 +26,11 @@ export function createListingCard(listing) {
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
+    const description = document.createElement("p");
+    description.className = "text-subtext text-sm mt-3 line-clamp-2";
+    description.textContent = listing.description;
+    card.appendChild(description);
+
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
