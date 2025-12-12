@@ -119,13 +119,21 @@ function setupOwnerActions(listing) {
         const actionsEl = document.getElementById("listing-actions");
 
         actionsEl.innerHTML = `
-            <a href="./edit-listing.html?id=${listing.id}">Edit Listing</a>
-            <button id="delete-listing-btn">Delete Listing</button>
+        <div class="flex items-center gap-4 mt-8">
+            <a href="./profile.html" class="border border-grayMain text-grayMain font-heading text-sm tracking-wider px-6 py-3 rounded-md hover:bg-grayMain hover:text-white transition">
+            ← Back to profile
+            </a>
+            <a href="./edit-listing.html?id=${listing.id}" class="bg-delete text-white font-heading text-sm tracking-wider px-6 py-3 rounded-md hover:opacity-90 transition">
+            Edit listing
+            </a>
+        </div>
         `;
 
-        document
-            .getElementById("delete-listing-btn")
-            .addEventListener("click", async () => {
+
+        document.getElementById("delete-listing-btn").addEventListener("click", async () => {
+            const confirmDelete = confirm("Are you sure you want to delete this listing?");
+            if (!confirmDelete) return;
+
             const success = await deleteListing(listing.id);
             if (success) {
                 window.location.href = "profile.html";
@@ -133,6 +141,7 @@ function setupOwnerActions(listing) {
         });
     }
 }
+
 
 function setupBidForm(listing) {
     const user = getStoredUser();
