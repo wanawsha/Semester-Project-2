@@ -39,7 +39,7 @@ export function createListingCard(listing) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = "pages/listing.html?id=" + listing.id; // ✅ correct
+    btn.href = "/pages/listing.html?id=" + listing.id; // ✅ correct
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
@@ -103,7 +103,7 @@ export function createUserBidCard({ listing, amount }) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = "pages/listing.html?id=" + listing.id; 
+    btn.href = "/pages/listing.html?id=" + listing.id; 
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
