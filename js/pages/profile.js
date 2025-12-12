@@ -29,6 +29,13 @@ async function loadProfile() {
     try {
         const profile = await getProfile(user.name);
 
+        const profileHeading = document.getElementById("profile-heading");
+        if (profileHeading) {
+            const name = profile.name;
+            const capitalizeName = name.charAt(0).toUpperCase() + name.slice(1);
+            profileHeading.textContent = `${capitalizeName}'s profile`;
+        }
+
         nameEl.textContent = profile.name;
         emailEl.textContent = profile.email;
         bioEl.textContent = profile.bio || "No bio yet.";
