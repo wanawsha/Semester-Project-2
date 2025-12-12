@@ -20,9 +20,9 @@ const user = getStoredUser();
 
 if (!user) {
     window.location.href = "login.html";
-    return; 
+} else {
+    loadProfile();
 }
-
 
 async function loadProfile() {
     try {
@@ -151,7 +151,6 @@ document.addEventListener("click", async (e) => {
     }
 });
 
-loadProfile();
 
 
 
