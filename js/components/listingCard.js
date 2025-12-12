@@ -1,3 +1,5 @@
+const isRootPage = !window.location.pathname.includes("/pages/");
+
 export function createListingCard(listing) {
     const card = document.createElement("div");
     card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
@@ -48,7 +50,10 @@ export function createListingCard(listing) {
 
     const btn = document.createElement("a");
     btn.className ="block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
-    btn.href = `/pages/listing.html?id=${listing.id}`;
+    btn.href = isRootPage
+    ? `pages/listing.html?id=${listing.id}`
+    : `listing.html?id=${listing.id}`;
+
     btn.textContent = "VIEW DETAILS";
 
     bottom.appendChild(btn);
@@ -70,7 +75,6 @@ export function createUserBidCard({ listing, amount }) {
 
     const isWinning = amount === highestBid;
 
-    // ✅ Winning badge
     if (isWinning) {
         const badge = document.createElement("div");
         badge.textContent = "YOU ARE WINNING";
@@ -120,7 +124,9 @@ export function createUserBidCard({ listing, amount }) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = `/pages/listing.html?id=${listing.id}`;
+    btn.href = isRootPage
+    ? `pages/listing.html?id=${listing.id}`
+    : `listing.html?id=${listing.id}`;
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
