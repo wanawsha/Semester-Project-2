@@ -105,8 +105,7 @@ export function createUserBidCard({ listing, amount }) {
     const btn = document.createElement("a");
     btn.href = "/pages/listing.html?id=" + listing.id; 
     btn.textContent = "VIEW DETAILS";
-    btn.className =
-        "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
+    btn.className ="block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
 
     bottom.appendChild(btn);
     card.appendChild(bottom);

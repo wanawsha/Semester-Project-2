@@ -3,6 +3,7 @@ import { setupNavbar } from "../utils/navbar.js";
 import { getProfile, getUserListings } from "../api/profileApi.js";
 import { createProfileCard } from "../components/profileCard.js";
 import { createUserBidCard } from "../components/listingCard.js";
+import { authHeaders } from "../utils/api.js";
 
 setupNavbar();
 
@@ -88,43 +89,42 @@ async function loadMyListings(username) {
 async function loadMyBids(username) {
     try {
         const response = await fetch(
-            "https://v2.api.noroff.dev/auction/listings?_bids=true&_seller=true"
+            `https://v2.api.noroff.dev/auction/profiles/${username}/bids?_listings=true`,
+            {
+                headers: authHeaders()
+            }
         );
 
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(result.errors?.[0]?.message || "Failed to fetch listings");
+            throw new Error(result.errors?.[0]?.message || "Failed to fetch bids");
         }
 
-        const listings = result.data;
+        const bids = result.data;
 
-        const myBids = listings.filter(listing =>
-            listing.bids?.some(bid => bid.bidder?.name === username)
-        );
-
-        if (!myBids.length) {
+        if (!bids.length) {
             myBidsContainer.innerHTML = "<p>You haven't placed any bids yet.</p>";
             return;
         }
 
         myBidsContainer.innerHTML = "";
 
-        myBids.forEach(listing => {
-            const userBid = listing.bids.find(b => b.bidder?.name === username);
-
+        bids.forEach(bid => {
             const card = createUserBidCard({
-                listing,
-                amount: userBid.amount,
+                listing: bid.listing,
+                amount: bid.amount,
             });
 
             myBidsContainer.appendChild(card);
         });
 
-    } catch {
+    } catch (error) {
         myBidsContainer.innerHTML = "<p>Error loading your bids.</p>";
+        console.error(error);
     }
 }
+
 
 document.addEventListener("click", async (e) => {
     const btn = e.target.closest("button[data-id]");

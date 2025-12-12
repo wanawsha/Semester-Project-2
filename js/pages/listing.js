@@ -1,7 +1,9 @@
-import { getStoredUser, storeCredits, storeUser } from "../utils/storage.js";
+import { getStoredUser, storeCredits } from "../utils/storage.js";
 import { authHeaders } from "../utils/api.js";
 import { setupNavbar } from "../utils/navbar.js";
+import { getProfile } from "../api/profileApi.js";
 import { getListingById, deleteListing } from "../api/listings.js";
+
 
 
 setupNavbar();
@@ -189,6 +191,13 @@ function setupBidForm(listing) {
             }
 
             alert("Bid placed successfully!");
+
+            const updatedProfile = await getProfile(user.name);
+
+            storeCredits(updatedProfile.credits);
+
+            setupNavbar();
+            
             loadListing();
         } catch (error) {
             alert(error.message);
