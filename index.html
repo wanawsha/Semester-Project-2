@@ -58,10 +58,20 @@
         </label>
         <input type="text" id="search-input" placeholder="Search by title..." class="w-full bg-white border border-grayMain rounded px-3 py-2 focus:outline-primary"/>
     </section>
+
     <main class="max-w-6xl mx-auto px-4 mt-10">
         <p class="text-xl font-light text-center tracking-wide max-w-3xl mx-auto mt-6 mb-10 font-heading">Welcome to <span class="font-semibold">BIDSTER</span> — create listings, place bids, and join a growing community of sellers and buyers.
         </p>
-        <h1 class="text-2xl font-heading mb-6">Listings</h1>
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-heading font-bold mb-6">Listings</h1>
+            <div class="toggle-wrapper flex items-center gap-4">
+                <span class="text-dark font-heading font-semibold">Active Bids</span>
+                <label class="switch">
+                    <input type="checkbox" id="active-bids-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
         <div id="listings-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         </div>
         <button id="load-more" class="mt-10 px-8 py-3 bg-primary text-white font-heading rounded-md mx-auto block hover:opacity-80 transition">Load more</button>

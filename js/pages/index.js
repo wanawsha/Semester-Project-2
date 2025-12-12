@@ -7,15 +7,17 @@ setupNavbar();
 const listingsContainer = document.getElementById("listings-container");
 const searchInput = document.getElementById("search-input");
 const loadMoreBtn = document.getElementById("load-more");
+const activeBidsToggle = document.getElementById("active-bids-toggle");
 
 let currentPage = 1;
 const LIMIT = 21;
 let hasMore = true;
 
 let allListings = [];
+let showActiveBidsOnly = false;
+
 
 async function loadListings(reset = false) {
-
     if (reset) {
         currentPage = 1;
         hasMore = true;
@@ -41,10 +43,12 @@ async function loadListings(reset = false) {
 
     allListings = [...allListings, ...listings];
 
-    listings.forEach((listing) => {
-        const card = createListingCard(listing);
-        listingsContainer.appendChild(card);
-    });
+    if (!showActiveBidsOnly) {
+        listings.forEach((listing) => {
+            const card = createListingCard(listing);
+            listingsContainer.appendChild(card);
+        });
+    }
 
     currentPage++;
 }
@@ -53,7 +57,7 @@ function renderListings(listings) {
     listingsContainer.innerHTML = "";
 
     if (listings.length === 0) {
-        listingsContainer.innerHTML = "<p>No listings match your search.</p>";
+        listingsContainer.innerHTML = "<p>No listings found.</p>";
         return;
     }
 
@@ -61,9 +65,21 @@ function renderListings(listings) {
         const card = createListingCard(listing);
         listingsContainer.appendChild(card);
     });
-    }
+}
 
-    searchInput.addEventListener("input", () => {
+function getActiveBidListings() {
+    const now = new Date();
+
+    return allListings.filter((listing) => {
+        const isActive = new Date(listing.endsAt) > now;
+        const hasBids = listing.bids && listing.bids.length > 0;
+
+        return isActive && hasBids;
+    });
+}
+
+
+searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
 
     const filtered = allListings.filter((listing) =>
@@ -71,12 +87,23 @@ function renderListings(listings) {
     );
 
     renderListings(filtered);
-    });
+});
 
-    loadMoreBtn.addEventListener("click", () => {
+activeBidsToggle.addEventListener("change", () => {
+    showActiveBidsOnly = activeBidsToggle.checked;
+
+    if (showActiveBidsOnly) {
+        renderListings(getActiveBidListings());
+        loadMoreBtn.classList.add("hidden");
+    } else {
+        renderListings(allListings);
+        loadMoreBtn.classList.remove("hidden");
+    }
+});
+
+loadMoreBtn.addEventListener("click", () => {
     loadListings();
 });
 
 loadListings(true);
-
 
