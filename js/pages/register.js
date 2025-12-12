@@ -34,7 +34,7 @@ form.addEventListener("submit", async (event) => {
 
         await loginUser(email, password);
 
-        window.location.href = "./login.html";
+        window.location.href = "/pages/login.html";
 
     } catch (error) {
         alert(`Registration failed:\n${error.message}`);

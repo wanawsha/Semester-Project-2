@@ -1,20 +1,6 @@
-function getListingUrl(id) {
-    const path = window.location.pathname;
-
-    const isIndex =
-        path.endsWith("index.html") ||
-        path === "/" ||
-        path.endsWith("/");
-
-    return isIndex
-        ? `pages/listing.html?id=${id}`
-        : `listing.html?id=${id}`;
-}
-
 export function createListingCard(listing) {
     const card = document.createElement("div");
-    card.className =
-        "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
+    card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
@@ -40,14 +26,6 @@ export function createListingCard(listing) {
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
     card.appendChild(seller);
 
-    const description = document.createElement("p");
-    description.className = "text-subtext text-sm mt-4 break-all";
-    description.textContent =
-        listing.description?.length > 80
-            ? listing.description.slice(0, 80) + "..."
-            : listing.description || "";
-    card.appendChild(description);
-
     const highestBid = listing.bids?.length
         ? Math.max(...listing.bids.map(b => b.amount))
         : 0;
@@ -61,7 +39,7 @@ export function createListingCard(listing) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = getListingUrl(listing.id);
+    btn.href = "pages/listing.html?id=" + listing.id; // ✅ correct
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
@@ -125,7 +103,7 @@ export function createUserBidCard({ listing, amount }) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = getListingUrl(listing.id);
+    btn.href = "pages/listing.html?id=" + listing.id; 
     btn.textContent = "VIEW DETAILS";
     btn.className =
         "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
@@ -135,6 +113,7 @@ export function createUserBidCard({ listing, amount }) {
 
     return card;
 }
+
 
 
 

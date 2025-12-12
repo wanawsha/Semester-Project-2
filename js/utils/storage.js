@@ -41,6 +41,6 @@ export function logout() {
     clearStoredToken();
     localStorage.removeItem(CREDITS_KEY);
 
-    window.location.href = "../index.html";
+    window.location.href = "/index.html";
 }
 
