@@ -10,6 +10,9 @@
     <title>Bidster -  Home</title>
 </head>
 <body class="bg-bg font-body text-dark overflow-x-hidden">
+    <div id="page-loader" class="fixed inset-0 bg-bg flex items-center justify-center z-[9999]">
+        <div class="w-10 h-10 border-4 border-grayMain border-t-accent rounded-full animate-spin"></div>
+    </div>
     <header class="bg-white shadow-sm relative">
         <div id="menu-overlay" class="hidden pointer-events-none md:hidden fixed inset-0 bg-black/40 z-40"></div>
         <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
@@ -31,7 +34,6 @@
                 <div id="nav-credits" class="hidden border border-accent text-accent px-6 py-2 rounded-full font-heading tracking-wider w-fit md:w-auto shadow-[0_0_12px_rgba(219,208,150,0.55),0_0_24px_rgba(219,208,150,0.35)]">
                     970 Credits
                 </div>
-
                 <a href="/index.html" class="font-semibold text-dark hover:underline md:hidden">
                     Home
                 </a>

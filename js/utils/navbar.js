@@ -91,3 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+window.addEventListener("load", () => {
+    const loader = document.getElementById("page-loader");
+    if (loader) {
+        loader.classList.add("hidden");
+    }
+});
