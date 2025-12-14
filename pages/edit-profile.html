@@ -11,17 +11,17 @@
     <meta name="description" content="Edit your BIDSTER profile. Update your avatar, banner image, bio, and personal details.">
     <meta name="keywords" content="edit profile, user settings, account settings, auction profile, BIDSTER">
 </head>
-<body class="bg-bg font-body text-dark">
-    <div id="page-loader" class="fixed inset-0 bg-bg flex items-center justify-center z-[9999]">
-        <div class="w-10 h-10 border-4 border-grayMain border-t-accent rounded-full animate-spin"></div>
+<body class="bg-bgMain font-body text-headings">
+    <div id="page-loader" class="fixed inset-0 bg-bMain flex items-center justify-center z-[9999]">
+        <div class="w-10 h-10 border-4 border-grayMain border-t-credits rounded-full animate-spin"></div>
     </div>
     <header class="bg-white shadow-sm relative">
         <div id="menu-overlay" class="hidden pointer-events-none md:hidden fixed inset-0 bg-black/40 z-40"></div>
         <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
-            <a href="../index.html" id="home-logo" class="text-2xl font-heading text-dark">
+            <a href="../index.html" id="home-logo" class="text-2xl font-heading text-headings">
                 Bidster
             </a>
-            <button id="menu-toggle" class="md:hidden fixed top-5 right-6 z-[60] text-dark focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+            <button id="menu-toggle" class="md:hidden fixed top-5 right-6 z-[60] text-headings focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg id="icon-menu" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
@@ -30,10 +30,10 @@
             </svg>
             </button>
             <nav id="mobile-menu" aria-hidden="true" class="fixed top-0 right-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50 px-6 pt-20 pb-10 flex flex-col gap-5 md:static md:h-auto md:w-auto md:translate-x-0 md:flex-row md:items-center md:gap-6 md:bg-transparent md:shadow-none md:p-0">
-                <a href="./create.html" id="create-link" class="hidden bg-primary text-white px-4 py-3 md:py-2 rounded-full text-center font-heading hover:opacity-90 transition">
+                <a href="./create.html" id="create-link" class="hidden bg-success text-white px-4 py-3 md:py-2 rounded-full text-center font-heading hover:opacity-90 transition">
                     + Create Listing
                 </a>
-                <div id="nav-credits" class="hidden border border-accent text-accent px-6 py-2 rounded-full font-heading tracking-wider w-fit md:w-auto shadow-[0_0_12px_rgba(219,208,150,0.55),0_0_24px_rgba(219,208,150,0.35)]">
+                <div id="nav-credits" class="hidden border border-success text-success px-6 py-2 rounded-full font-heading tracking-wider w-fit md:w-auto shadow-[0_0_12px_rgba(219,208,150,0.55),0_0_24px_rgba(219,208,150,0.35)]">
                     0 Credits
                 </div>
                 <a href="../index.html" class="font-semibold text-subtext hover:underline">

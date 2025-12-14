@@ -35,7 +35,7 @@ async function loadListing() {
 
     document.getElementById("listing-highest-bid").innerHTML = `
     <span>Highest bid:</span>
-    <span class="mx-2 text-accent font-heading text-lg">${highestBid}</span>
+    <span class="mx-2 text-credits font-heading text-lg">${highestBid}</span>
     <span">Credits</span>
     `;
 
@@ -92,18 +92,18 @@ function renderBidHistory(bids = []) {
             const row = document.createElement("div");
             row.className = `
                 grid grid-cols-3 rounded p-4 mb-3 text-sm font-body
-                ${isMyBid ? "bg-primary/20 border border-primary" : "bg-grayMain/20"}
+                ${isMyBid ? "bg-success/20 border border-success" : "bg-grayMain/20"}
             `;
 
             row.innerHTML = `
-                <span class="font-heading ${isMyBid ? "text-primary" : ""}">
+                <span class="font-heading ${isMyBid ? "text-success" : ""}">
                     ${bid.bidder?.name || "Unknown"}
                     ${isMyBid ? " (My bid)" : ""}
                 </span>
                 <span class="text-subtext">
                     ${new Date(bid.created).toLocaleDateString("en-GB")}
                 </span>
-                <span class="text-accent font-heading text-right">
+                <span class="text-credits font-heading text-right">
                     ${bid.amount} CREDITS
                 </span>
             `;
@@ -154,7 +154,7 @@ function setupBidForm(listing) {
     if (!user) {
         form.classList.remove("hidden");
         form.innerHTML = `
-            <a href="login.html" class="mx-auto block w-60 bg-primary text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
+            <a href="login.html" class="mx-auto block w-60 bg-success text-white text-center py-2 rounded-md font-heading tracking-wide hover:opacity-90 transition">
             Log in to place a bid
             </a>
         `;
@@ -197,7 +197,7 @@ function setupBidForm(listing) {
             storeCredits(updatedProfile.credits);
 
             setupNavbar();
-            
+
             loadListing();
         } catch (error) {
             alert(error.message);

@@ -17,7 +17,7 @@ export function createProfileCard(listing) {
     card.appendChild(imgWrap);
 
     const title = document.createElement("h3");
-    title.className = "mt-6 font-heading text-xl text-dark";
+    title.className = "mt-6 font-heading text-xl text-headings";
     title.textContent = listing.title;
     card.appendChild(title);
 
@@ -40,7 +40,7 @@ export function createProfileCard(listing) {
         : 0;
 
     const price = document.createElement("p");
-    price.className = "text-accent font-heading text-xl mt-6";
+    price.className = "text-credits font-heading text-xl mt-6";
     price.textContent = `${highestBid} Credits`;
     card.appendChild(price);
 
@@ -50,7 +50,7 @@ export function createProfileCard(listing) {
     const editBtn = document.createElement("a");
     editBtn.href = `/pages/edit-listing.html?id=${listing.id}`;
     editBtn.textContent = "EDIT LISTING";
-    editBtn.className ="flex-1 bg-primary text-white font-heading text-sm tracking-wider py-3 rounded-md text-center hover:opacity-90 transition";
+    editBtn.className ="flex-1 bg-success text-white font-heading text-sm tracking-wider py-3 rounded-md text-center hover:opacity-90 transition";
 
     const deleteBtn = document.createElement("button");
     deleteBtn.type = "button"; 

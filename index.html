@@ -11,17 +11,17 @@
     <meta name="description" content="BIDSTER is an online auction platform where users create listings, place live bids, and compete in real-time auctions.">
     <meta name="keywords" content="auction, bidding, online auction, live bids, buy and sell, marketplace">
 </head>
-<body class="bg-bg font-body text-dark overflow-x-hidden">
-    <div id="page-loader" class="fixed inset-0 bg-bg flex items-center justify-center z-[9999]">
-        <div class="w-10 h-10 border-4 border-grayMain border-t-accent rounded-full animate-spin"></div>
+<body class="bg-bgMain font-body text-headings overflow-x-hidden">
+    <div id="page-loader" class="fixed inset-0 bg-bgMain flex items-center justify-center z-[9999]">
+        <div class="w-10 h-10 border-4 border-grayMain border-t-credits rounded-full animate-spin"></div>
     </div>
     <header class="bg-white shadow-sm relative">
         <div id="menu-overlay" class="hidden pointer-events-none md:hidden fixed inset-0 bg-black/40 z-40"></div>
         <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
-            <a href="index.html" id="home-logo" class="text-2xl font-heading text-dark">
+            <a href="index.html" id="home-logo" class="text-2xl font-heading text-headings">
                 Bidster
             </a>
-            <button id="menu-toggle" class="md:hidden fixed top-5 right-6 z-[60] text-dark focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+            <button id="menu-toggle" class="md:hidden fixed top-5 right-6 z-[60] text-headings focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
                 <svg id="icon-menu" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
@@ -30,25 +30,25 @@
                 </svg>
             </button>
             <nav id="mobile-menu" aria-hidden="true" class="fixed top-0 right-0 h-full w-72 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50 px-6 pt-20 pb-10 flex flex-col gap-5 md:static md:h-auto md:w-auto md:translate-x-0 md:flex-row md:items-center md:gap-6 md:bg-transparent md:shadow-none md:p-0">
-                <a href="/pages/create.html" id="create-link" class="hidden bg-primary text-white px-4 py-3 md:py-2 rounded-full text-center font-heading hover:opacity-90 transition">
+                <a href="/pages/create.html" id="create-link" class="hidden bg-success text-white px-4 py-3 md:py-2 rounded-full text-center font-heading hover:opacity-90 transition">
                     + Create Listing
                 </a>
-                <div id="nav-credits" class="hidden border border-accent text-accent px-6 py-2 rounded-full font-heading tracking-wider w-fit md:w-auto shadow-[0_0_12px_rgba(219,208,150,0.55),0_0_24px_rgba(219,208,150,0.35)]">
+                <div id="nav-credits" class="hidden border border-credits text-credits px-6 py-2 rounded-full font-heading tracking-wider w-fit md:w-auto shadow-[0_0_12px_rgba(219,208,150,0.55),0_0_24px_rgba(219,208,150,0.35)]">
                     970 Credits
                 </div>
                 <a href="/index.html" class="font-semibold text-subtext hover:underline">
                     Home
                 </a>
-                <a href="/pages/create.html" id="login-link" class="font-semibold text-button hover:underline">
+                <a href="/pages/create.html" id="login-link" class="font-semibold text-subtext hover:underline">
                     Login
                 </a>
-                <a href="/pages/register.html" id="register-link" class="font-semibold text-button hover:underline">
+                <a href="/pages/register.html" id="register-link" class="font-semibold text-subtext hover:underline">
                     Register
                 </a>
-                <a href="/pages/profile.html" id="profile-link" class="hidden text-dark hover:underline font-semibold">
+                <a href="/pages/profile.html" id="profile-link" class="hidden text-subtext hover:underline font-semibold">
                     Profile
                 </a>
-                <button id="logout-btn" class="hidden text-dark hover:underline text-left md:text-center font-semibold">
+                <button id="logout-btn" class="hidden text-subtext hover:underline text-left md:text-center font-semibold">
                     Log Out
                 </button>
             </nav>
@@ -58,7 +58,7 @@
         <label for="search-input" class="text-sm text-subtext block mb-1">
             Search for a listing
         </label>
-        <input type="text" id="search-input" placeholder="Search by title..." class="w-full bg-white border border-grayMain rounded px-3 py-2 focus:outline-primary"/>
+        <input type="text" id="search-input" placeholder="Search by title..." class="w-full bg-white border border-grayMain rounded px-3 py-2 focus:outline-success"/>
     </section>
 
     <main class="max-w-6xl mx-auto px-4 mt-10">
@@ -67,7 +67,7 @@
         <div class="flex items-center justify-between mb-6">
             <h1 class="text-2xl font-heading font-bold mb-6">Listings</h1>
             <div class="toggle-wrapper flex items-center gap-4">
-                <span class="text-dark font-heading font-semibold">Active Bids</span>
+                <span class="text-headings font-heading font-semibold">Active Bids</span>
                 <label class="switch">
                     <input type="checkbox" id="active-bids-toggle">
                     <span class="slider"></span>
@@ -76,7 +76,7 @@
         </div>
         <div id="listings-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         </div>
-        <button id="load-more" class="mt-10 px-8 py-3 bg-primary text-white font-heading rounded-md mx-auto block hover:opacity-80 transition">Load more</button>
+        <button id="load-more" class="mt-10 px-8 py-3 bg-success text-white font-heading rounded-md mx-auto block hover:opacity-80 transition">Load more</button>
     </main>
     <footer class="bg-white mt-20 border-t">
         <div class="max-w-6xl mx-auto text-center py-6">

@@ -14,7 +14,7 @@ export function createListingCard(listing) {
     card.appendChild(imgWrap);
 
     const title = document.createElement("h3");
-    title.className = "mt-6 font-heading text-xl text-dark";
+    title.className = "mt-6 font-heading text-xl text-headings";
     title.textContent =
         listing.title.length > 20
             ? listing.title.slice(0, 20) + "..."
@@ -36,7 +36,7 @@ export function createListingCard(listing) {
         : 0;
 
     const price = document.createElement("p");
-    price.className = "text-accent font-heading text-xl mt-6";
+    price.className = "text-credits font-heading text-xl mt-6";
     price.textContent = `Highest Bid: ${highestBid} Credits`;
     card.appendChild(price);
 
@@ -67,7 +67,7 @@ export function createUserBidCard({ listing, amount }) {
         const badge = document.createElement("div");
         badge.textContent = "YOU ARE WINNING";
         badge.className =
-            "absolute top-3 right-3 bg-accent text-white text-xs font-heading px-3 py-1 rounded-md shadow";
+            "absolute top-3 right-3 bg-credits text-white text-xs font-heading px-3 py-1 rounded-md shadow";
         card.appendChild(badge);
     }
 
@@ -83,7 +83,7 @@ export function createUserBidCard({ listing, amount }) {
     card.appendChild(imgWrap);
 
     const title = document.createElement("h3");
-    title.className = "mt-6 font-heading text-xl text-dark";
+    title.className = "mt-6 font-heading text-xl text-headings";
     title.textContent =
         listing.title.length > 20
             ? listing.title.slice(0, 20) + "..."
@@ -106,7 +106,7 @@ export function createUserBidCard({ listing, amount }) {
     credit.className = "mt-6";
     credit.innerHTML = `
         <span class="text-subtext font-heading text-sm block">Your bid:</span>
-        <span class="text-accent font-heading text-xl">${amount} Credits</span>
+        <span class="text-credits font-heading text-xl">${amount} Credits</span>
     `;
     card.appendChild(credit);
 
