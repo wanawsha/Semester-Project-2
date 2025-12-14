@@ -111,6 +111,8 @@ create.js – Logic for creating a new listing
 
 output.css – Compiled Tailwind CSS file
 
+style.css
+
 ---
 
 ## ⚙️ How to Run the Project
