@@ -5,6 +5,7 @@ import { authHeaders } from "../utils/api.js";
 setupNavbar();
 
 const form = document.getElementById("create-listing-form");
+if (!form) return;
 const titleInput = document.getElementById("listing-title");
 const descriptionInput = document.getElementById("listing-description");
 const endDateInput = document.getElementById("listing-end-date");
