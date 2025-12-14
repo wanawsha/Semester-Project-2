@@ -1,6 +1,11 @@
 export function createListingCard(listing) {
+    const link = document.createElement("a");
+    link.href = "/pages/listing.html?id=" + listing.id;
+    link.className = "block h-full";
+
     const card = document.createElement("div");
-    card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
+    card.className =
+        "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden cursor-pointer hover:shadow-lg transition";
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
@@ -20,7 +25,7 @@ export function createListingCard(listing) {
             ? listing.title.slice(0, 20) + "..."
             : listing.title;
     card.appendChild(title);
- 
+
     const seller = document.createElement("p");
     seller.className = "text-subtext text-sm mt-1 break-all";
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
@@ -28,7 +33,7 @@ export function createListingCard(listing) {
 
     const description = document.createElement("p");
     description.className = "text-subtext text-sm mt-3 line-clamp-2";
-    description.textContent = listing.description;
+    description.textContent = listing.description || "";
     card.appendChild(description);
 
     const highestBid = listing.bids?.length
@@ -43,16 +48,25 @@ export function createListingCard(listing) {
     const bottom = document.createElement("div");
     bottom.className = "mt-auto pt-6";
 
-    const btn = document.createElement("a");
-    btn.href = "/pages/listing.html?id=" + listing.id; 
+    const btn = document.createElement("button");
     btn.textContent = "VIEW DETAILS";
-    btn.className ="block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
+    btn.className =
+        "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = link.href;
+    });
 
     bottom.appendChild(btn);
     card.appendChild(bottom);
 
-    return card;
+    link.appendChild(card);
+    return link;
 }
+
+
 
 export function createUserBidCard({ listing, amount }) {
     const card = document.createElement("div");
