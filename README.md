@@ -62,34 +62,34 @@ The main goal was to demonstrate understanding of:
 
 ## 📂 Project Structure
 
-Root
+**Root:**
 
-/index.html – Homepage showing all active listings
+index.html – Homepage showing all active listings
 
-/pages
+**Pages:**
 
-/login.html – User login page
+login.html – User login page
 
-/register.html – User registration page
+register.html – User registration page
 
-/profile.html – User profile with own listings and bids
+profile.html – User profile with own listings and bids
 
-/listing.html – Single listing page with details and bidding
+listing.html – Single listing page with details and bidding
 
-/create.html – Create a new auction listing
+create.html – Create a new auction listing
 
-/js
-/api
+**js:**
+**api:**
 
 listings.js – Handles all listing-related API requests (fetch, delete, etc.)
 
 auth.js – Handles login and registration requests
 
-/components
+**components:**
 
 listingCard.js – Reusable components for listing cards and bid cards
 
-/utils
+**utils:**
 
 storage.js – Handles localStorage (user, token, credits)
 
@@ -97,7 +97,7 @@ api.js – Shared API helpers and auth headers
 
 navbar.js – Navbar logic (login/logout, credits, mobile menu)
 
-/pages
+**pages:**
 
 index.js – Logic for loading and filtering listings on the homepage
 
@@ -107,9 +107,11 @@ profile.js – Logic for user profile, listings, and bids
 
 create.js – Logic for creating a new listing
 
-/css
+**css:**
 
 output.css – Compiled Tailwind CSS file
+
+style.css
 
 ---
 
