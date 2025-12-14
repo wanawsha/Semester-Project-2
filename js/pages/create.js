@@ -5,16 +5,14 @@ import { authHeaders } from "../utils/api.js";
 setupNavbar();
 
 const form = document.getElementById("create-listing-form");
-if (!form) return;
-const titleInput = document.getElementById("listing-title");
-const descriptionInput = document.getElementById("listing-description");
-const endDateInput = document.getElementById("listing-end-date");
-const mediaInput = document.getElementById("listing-media");
+if (!form) {
+    console.log("create.js loaded on non-create page");
+} else {
+    const user = getStoredUser();
 
-const user = getStoredUser();
-if (!user) {
-    alert("You must be logged in to create a listing.");
-    window.location.href = "./login.html";
+    if (!user) {
+        window.location.href = "./login.html";
+    }
 }
 
 async function createListing(e) {
