@@ -89,7 +89,7 @@ async function loadMyListings(username) {
 async function loadMyBids(username) {
     try {
         const response = await fetch(
-            `https://v2.api.noroff.dev/auction/profiles/${username}/bids?_listings=true`,
+            `https://v2.api.noroff.dev/auction/profiles/${username}/bids?_listings=true&_listings_seller=true`,
             {
                 headers: authHeaders()
             }

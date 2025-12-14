@@ -20,7 +20,7 @@ export function createListingCard(listing) {
             ? listing.title.slice(0, 20) + "..."
             : listing.title;
     card.appendChild(title);
-
+ 
     const seller = document.createElement("p");
     seller.className = "text-subtext text-sm mt-1 break-all";
     seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
@@ -44,10 +44,9 @@ export function createListingCard(listing) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = "/pages/listing.html?id=" + listing.id; // ✅ correct
+    btn.href = "/pages/listing.html?id=" + listing.id; 
     btn.textContent = "VIEW DETAILS";
-    btn.className =
-        "block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
+    btn.className ="block w-full bg-button text-white py-3 rounded-md text-center font-heading tracking-wide hover:opacity-80 transition";
 
     bottom.appendChild(btn);
     card.appendChild(bottom);
@@ -91,10 +90,17 @@ export function createUserBidCard({ listing, amount }) {
             : listing.title;
     card.appendChild(title);
 
-    const seller = document.createElement("p");
-    seller.className = "text-subtext text-sm mt-1 break-all";
-    seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
-    card.appendChild(seller);
+    // const seller = document.createElement("p");
+    // seller.className = "text-subtext text-sm mt-1 break-all";
+    // seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
+    // card.appendChild(seller);
+
+    if (listing.description) {
+        const description = document.createElement("p");
+        description.className = "text-subtext text-sm mt-3 line-clamp-2";
+        description.textContent = listing.description;
+        card.appendChild(description);
+    }
 
     const credit = document.createElement("p");
     credit.className = "mt-6";
