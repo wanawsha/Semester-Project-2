@@ -15,9 +15,11 @@ let hasMore = true;
 
 let allListings = [];
 let showActiveBidsOnly = false;
-
+let isSearching = false;
 
 async function loadListings(reset = false) {
+    if (isSearching) return;
+
     if (reset) {
         currentPage = 1;
         hasMore = true;
@@ -41,68 +43,100 @@ async function loadListings(reset = false) {
         return;
     }
 
-    allListings = [...allListings, ...listings];
+    allListings.push(...listings);
 
-    if (!showActiveBidsOnly) {
-        listings.forEach((listing) => {
-            const card = createListingCard(listing);
-            listingsContainer.appendChild(card);
-        });
-    }
+    renderListings(
+        showActiveBidsOnly ? getActiveBidListings() : allListings
+    );
 
     currentPage++;
 }
 
+let searchTimeout;
+
+async function searchListings(query) {
+    const result = await getAllListings({
+        search: query,
+        limit: 100,
+    });
+
+    const listings = result.data || [];
+
+    renderListings(
+        showActiveBidsOnly ? filterActiveBids(listings) : listings
+    );
+}
+
+searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimeout);
+
+    const query = searchInput.value.trim();
+
+    if (!query) {
+        isSearching = false;
+        renderListings(
+            showActiveBidsOnly ? getActiveBidListings() : allListings
+        );
+        loadMoreBtn.classList.remove("hidden");
+        return;
+    }
+
+    isSearching = true;
+    loadMoreBtn.classList.add("hidden");
+
+    searchTimeout = setTimeout(() => {
+        searchListings(query);
+    }, 300);
+});
+
+function getActiveBidListings() {
+    return filterActiveBids(allListings);
+}
+
+function filterActiveBids(listings) {
+    const now = new Date();
+
+    return listings.filter((listing) => {
+        const isActive = new Date(listing.endsAt) > now;
+        const hasBids = listing.bids?.length > 0;
+        return isActive && hasBids;
+    });
+}
+
+activeBidsToggle.addEventListener("change", () => {
+    showActiveBidsOnly = activeBidsToggle.checked;
+
+    if (isSearching) {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchListings(query);
+        }
+        return;
+    }
+
+    renderListings(
+        showActiveBidsOnly ? getActiveBidListings() : allListings
+    );
+
+    loadMoreBtn.classList.toggle("hidden", showActiveBidsOnly);
+});
+
+
 function renderListings(listings) {
     listingsContainer.innerHTML = "";
 
-    if (listings.length === 0) {
+    if (!listings.length) {
         listingsContainer.innerHTML = "<p>No listings found.</p>";
         return;
     }
 
     listings.forEach((listing) => {
-        const card = createListingCard(listing);
-        listingsContainer.appendChild(card);
+        listingsContainer.appendChild(createListingCard(listing));
     });
 }
-
-function getActiveBidListings() {
-    const now = new Date();
-
-    return allListings.filter((listing) => {
-        const isActive = new Date(listing.endsAt) > now;
-        const hasBids = listing.bids && listing.bids.length > 0;
-
-        return isActive && hasBids;
-    });
-}
-
-searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-
-    const filtered = allListings.filter((listing) =>
-        listing.title.toLowerCase().includes(query)
-    );
-
-    renderListings(filtered);
-});
-
-activeBidsToggle.addEventListener("change", () => {
-    showActiveBidsOnly = activeBidsToggle.checked;
-
-    if (showActiveBidsOnly) {
-        renderListings(getActiveBidListings());
-        loadMoreBtn.classList.add("hidden");
-    } else {
-        renderListings(allListings);
-        loadMoreBtn.classList.remove("hidden");
-    }
-});
 
 loadMoreBtn.addEventListener("click", () => {
     loadListings();
 });
 
 loadListings(true);
-

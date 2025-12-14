@@ -16,32 +16,42 @@ export async function getAllListings({
     page = 1,
     sort = "created",
     sortOrder = "desc",
-    } = {}) {
+    search = "",
+} = {}) {
     const query = [];
 
     if (includeSeller) query.push("_seller=true");
     if (includeBids) query.push("_bids=true");
 
     query.push(`limit=${limit}`);
-    query.push(`page=${page}`);
     query.push(`sort=${sort}`);
     query.push(`sortOrder=${sortOrder}`);
 
-    const url = `${BASE_URL}?${query.join("&")}`;
+    let url;
+
+    if (search) {
+        query.push(`q=${encodeURIComponent(search)}`);
+        url = `${BASE_URL}/search?${query.join("&")}`;
+    } else {
+        query.push(`page=${page}`);
+        url = `${BASE_URL}?${query.join("&")}`;
+    }
 
     try {
         const response = await fetch(url, { headers });
         const result = await response.json();
 
         if (!response.ok) {
-        throw new Error(result.errors?.[0]?.message || "Failed to fetch listings");
+            throw new Error(
+                result.errors?.[0]?.message || "Failed to fetch listings"
+            );
         }
 
         return result;
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching listings:", error);
         return { data: [], meta: {} };
-  }
+    }
 }
 
 export async function getListingById(id, includeRelations = true) {
