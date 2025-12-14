@@ -134,7 +134,7 @@ function setupOwnerActions(listing) {
         actionsEl.innerHTML = `
         <div class="flex items-center gap-4 mt-8">
             <a href="./profile.html" class="border border-grayMain text-grayMain font-heading text-sm tracking-wider px-6 py-3 rounded-md hover:bg-grayMain hover:text-white transition">
-            ← Back to profile
+            Back to profile
             </a>
             <a href="./edit-listing.html?id=${listing.id}" class="bg-delete text-white font-heading text-sm tracking-wider px-6 py-3 rounded-md hover:opacity-90 transition">
             Edit listing
