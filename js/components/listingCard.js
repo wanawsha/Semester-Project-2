@@ -66,24 +66,9 @@ export function createListingCard(listing) {
     return link;
 }
 
-
-
 export function createUserBidCard({ listing, amount }) {
     const card = document.createElement("div");
-    card.className =
-        "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
-
-    const highestBid = listing.bids?.length
-        ? Math.max(...listing.bids.map(b => b.amount))
-        : 0;
-
-    if (amount === highestBid) {
-        const badge = document.createElement("div");
-        badge.textContent = "YOU ARE WINNING";
-        badge.className =
-            "absolute top-3 right-3 bg-credits text-white text-xs font-heading px-3 py-1 rounded-md shadow";
-        card.appendChild(badge);
-    }
+    card.className = "relative flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden";
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
@@ -104,11 +89,6 @@ export function createUserBidCard({ listing, amount }) {
             : listing.title;
     card.appendChild(title);
 
-    // const seller = document.createElement("p");
-    // seller.className = "text-subtext text-sm mt-1 break-all";
-    // seller.textContent = `By ${listing.seller?.name || "Unknown"}`;
-    // card.appendChild(seller);
-
     if (listing.description) {
         const description = document.createElement("p");
         description.className = "text-subtext text-sm mt-3 line-clamp-2";
@@ -128,15 +108,17 @@ export function createUserBidCard({ listing, amount }) {
     bottom.className = "mt-auto pt-6";
 
     const btn = document.createElement("a");
-    btn.href = "/pages/listing.html?id=" + listing.id; 
+    btn.href = "/pages/listing.html?id=" + listing.id;
     btn.textContent = "VIEW DETAILS";
-    btn.className ="block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
+    btn.className =
+        "block w-full text-center bg-button text-white py-3 rounded-md font-heading tracking-wide hover:opacity-80 transition";
 
     bottom.appendChild(btn);
     card.appendChild(bottom);
 
     return card;
 }
+
 
 
 
