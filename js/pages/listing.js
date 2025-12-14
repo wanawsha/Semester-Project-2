@@ -4,8 +4,6 @@ import { setupNavbar } from "../utils/navbar.js";
 import { getProfile } from "../api/profileApi.js";
 import { getListingById, deleteListing } from "../api/listings.js";
 
-
-
 setupNavbar();
 
 const listingContainer = document.getElementById("single-listing-section");
@@ -29,9 +27,22 @@ async function loadListing() {
     document.getElementById("listing-description").textContent =
         listing.description || "";
 
+       
+    const hasEnded = new Date(listing.endsAt) < new Date();
+
+    const statusEl = document.getElementById("listing-status");
+    if (statusEl) {
+        if (hasEnded) {
+            statusEl.textContent = "Bid has ended";
+            statusEl.className ="mt-4 inline-flex px-4 py-2 text-sm font-heading uppercase font-bold tracking-widest rounded-md bg-delete text-white";
+        } else {
+            statusEl.textContent = "";
+        }
+    }
+    
     const highestBid = listing.bids?.length
-        ? Math.max(...listing.bids.map(b => b.amount))
-        : 0;
+    ? Math.max(...listing.bids.map(b => b.amount))
+    : 0;
 
     document.getElementById("listing-highest-bid").innerHTML = `
     <span>Highest bid:</span>

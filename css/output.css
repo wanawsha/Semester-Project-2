@@ -712,6 +712,10 @@ video {
   margin-top: auto;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -729,6 +733,10 @@ video {
 
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .grid {
@@ -861,6 +869,10 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 .resize-none {
@@ -1125,6 +1137,11 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -1261,6 +1278,15 @@ video {
 .text-headings {
   --tw-text-opacity: 1;
   color: rgb(57 57 57 / var(--tw-text-opacity));
+}
+
+.text-delete {
+  --tw-text-opacity: 1;
+  color: rgb(218 196 196 / var(--tw-text-opacity));
+}
+
+.opacity-40 {
+  opacity: 0.4;
 }
 
 .shadow {
