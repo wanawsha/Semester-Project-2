@@ -35,9 +35,9 @@ export function createProfileCard(listing) {
     desc.textContent = raw.length > 80 ? raw.slice(0, 80) + "..." : raw;
     card.appendChild(desc);
 
-    const highestBid = listing.bids?.length
-        ? Math.max(...listing.bids.map((b) => b.amount))
-        : 0;
+    const highestBid = listing.bids?.length 
+    ? Math.max(...listing.bids.map((b) => b.amount)) 
+    : 0;
 
     const price = document.createElement("p");
     price.className = "text-credits font-heading text-xl mt-6";

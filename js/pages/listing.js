@@ -26,7 +26,6 @@ async function loadListing() {
         new Date(listing.endsAt).toLocaleString();
     document.getElementById("listing-description").textContent =
         listing.description || "";
-
        
     const hasEnded = new Date(listing.endsAt) < new Date();
 
@@ -123,7 +122,6 @@ function renderBidHistory(bids = []) {
         });
 }
 
-
 function setupOwnerActions(listing) {
     const user = getStoredUser();
     if (!user) return;
@@ -141,7 +139,6 @@ function setupOwnerActions(listing) {
             </a>
         </div>
         `;
-
 
         document.getElementById("delete-listing-btn").addEventListener("click", async () => {
             const confirmDelete = confirm("Are you sure you want to delete this listing?");

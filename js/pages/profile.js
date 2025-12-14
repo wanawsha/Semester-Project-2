@@ -25,7 +25,6 @@ if (!user) {
     loadProfile();
 }
 
-
 async function loadProfile() {
     try {
         const profile = await getProfile(user.name);
@@ -63,7 +62,6 @@ async function loadProfile() {
         alert("Could not load profile: " + error.message);
     }
 }
-
 
 async function loadMyListings(username) {
     try {
@@ -124,7 +122,6 @@ async function loadMyBids(username) {
         console.error(error);
     }
 }
-
 
 document.addEventListener("click", async (e) => {
     const btn = e.target.closest("button[data-id]");

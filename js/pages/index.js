@@ -78,7 +78,6 @@ function getActiveBidListings() {
     });
 }
 
-
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
 

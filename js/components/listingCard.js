@@ -4,8 +4,7 @@ export function createListingCard(listing) {
     link.className = "block h-full";
 
     const card = document.createElement("div");
-    card.className =
-        "flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden cursor-pointer hover:shadow-lg transition";
+    card.className ="flex flex-col bg-white rounded-md shadow-md p-6 h-full overflow-hidden cursor-pointer hover:shadow-lg transition";
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
@@ -36,9 +35,8 @@ export function createListingCard(listing) {
     description.textContent = listing.description || "";
     card.appendChild(description);
 
-    const highestBid = listing.bids?.length
-        ? Math.max(...listing.bids.map(b => b.amount))
-        : 0;
+    const highestBid = listing.bids?.length ? Math.max(...listing.bids.map(b => b.amount)) 
+    : 0;
 
     const price = document.createElement("p");
     price.className = "text-credits font-heading text-xl mt-6";
@@ -102,6 +100,7 @@ export function createUserBidCard({ listing, amount }) {
         <span class="text-subtext font-heading text-sm block">Your bid:</span>
         <span class="text-credits font-heading text-xl">${amount} Credits</span>
     `;
+
     card.appendChild(credit);
 
     const bottom = document.createElement("div");

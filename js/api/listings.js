@@ -38,10 +38,10 @@ export async function getAllListings({
         }
 
         return result;
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching listings:", error);
         return { data: [], meta: {} };
-    }
+  }
 }
 
 export async function getListingById(id, includeRelations = true) {
