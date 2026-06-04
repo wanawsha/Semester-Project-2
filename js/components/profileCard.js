@@ -6,14 +6,16 @@ export function createProfileCard(listing) {
     card.className = "flex flex-col bg-white rounded-md shadow-md p-6 h-full";
 
     const imgWrap = document.createElement("div");
-    imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
+    imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover flex items-center justify-center text-subtext font-heading";
 
-    const firstImage =
-        listing.media?.length && listing.media[0].url
-        ? listing.media[0].url
-        : listing.media?.[0] || "https://via.placeholder.com/300?text=No+Image";
+    const firstImage = listing.media?.[0]?.url?.trim();
 
-    imgWrap.style.backgroundImage = `url('${firstImage}')`;
+    if (firstImage) {
+        imgWrap.style.backgroundImage = `url("${encodeURI(firstImage)}")`;
+    } else {
+        imgWrap.textContent = "No Image Available";
+    }
+
     card.appendChild(imgWrap);
 
     const title = document.createElement("h3");

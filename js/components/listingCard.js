@@ -9,10 +9,7 @@ export function createListingCard(listing) {
     const imgWrap = document.createElement("div");
     imgWrap.className = "w-full h-48 rounded-md bg-grayMain bg-center bg-cover";
 
-    const firstImage =
-        listing.media?.length && listing.media[0].url
-            ? listing.media[0].url
-            : "https://via.placeholder.com/300?text=No+Image";
+    const firstImage = listing.media?.[0]?.url || "https://placehold.co/600x400?text=No+Image+Available";
 
     imgWrap.style.backgroundImage = `url('${firstImage}')`;
     card.appendChild(imgWrap);
