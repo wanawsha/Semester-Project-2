@@ -27,6 +27,7 @@ For Portfolio 2, I reviewed the project and made improvements to prepare it for 
 ### Related Commit
 
 https://github.com/wanawsha/Semester-Project-2/commit/1577a175346534b0e9f5c91918e4ba286550774f
+
 ## Project Overview
 
 In this project, I built a fully functional auction site using the Noroff Auction API.  
@@ -49,6 +50,17 @@ The main goal was to demonstrate understanding of:
 - **Noroff Auction API**
 
 ---
+
+## API
+
+This project uses the Noroff Auction API.
+
+Authentication is required for:
+- Creating listings
+- Editing listings
+- Deleting listings
+- Placing bids
+- Updating profile information
 
 ##  Features
 
