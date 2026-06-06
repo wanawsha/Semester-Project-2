@@ -3,9 +3,30 @@
 Bidster is an auction-based web application where users can create listings, place bids, and manage their profile.  
 The project was built as part of Semester Project 2 and focuses on working with APIs, authentication, and dynamic UI updates using JavaScript.
 
----
-<img width="1390" height="794" alt="bidsterafter" src="https://github.com/user-attachments/assets/e5d0e34e-1a5b-45b6-a693-d2a584fee5e0" />---
+## Live Site 
+https://bidsterr.netlify.app/
 
+## Repository
+
+https://github.com/wanawsha/Semester-Project-2
+
+## Screenshots
+<img width="1390" height="794" alt="bidsterafter" src="https://github.com/user-attachments/assets/e5d0e34e-1a5b-45b6-a693-d2a584fee5e0" />---
+<img width="1267" height="775" alt="Skjermbilde 2026-06-06 kl  20 49 23" src="https://github.com/user-attachments/assets/1049c5a8-aecb-4581-8c74-876ea3c8b5a4" />
+
+## Portfolio Improvements
+
+For Portfolio 2, I reviewed the project and made improvements to prepare it for professional presentation.
+
+### Improvements Made
+
+- Added a fallback image solution for listings without media
+- Improved the visual consistency of listing cards
+- Improved the overall user experience on the listings overview page
+
+### Related Commit
+
+https://github.com/wanawsha/Semester-Project-2/commit/1577a175346534b0e9f5c91918e4ba286550774f
 ## Project Overview
 
 In this project, I built a fully functional auction site using the Noroff Auction API.  
@@ -118,10 +139,33 @@ style.css
 
 ## ⚙️ How to Run the Project
 
-1. Clone the repository
-2. Open the project in VS Code
-3. Run Tailwind in watch mode (if applicable)
-4. Open `index.html` using Live Server
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/wanawsha/Semester-Project-2.git
+```
+
+2. Navigate to the project folder:
+
+```bash
+cd Semester-Project-2
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Run Tailwind CSS in development mode:
+
+```bash
+npm run dev
+```
+
+5. Open `index.html` using Live Server in Visual Studio Code.
 
 ---
 
