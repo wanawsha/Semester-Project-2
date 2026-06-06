@@ -4,6 +4,7 @@ Bidster is an auction-based web application where users can create listings, pla
 The project was built as part of Semester Project 2 and focuses on working with APIs, authentication, and dynamic UI updates using JavaScript.
 
 ---
+<img width="1390" height="794" alt="bidsterafter" src="https://github.com/user-attachments/assets/e5d0e34e-1a5b-45b6-a693-d2a584fee5e0" />---
 
 ## Project Overview
 
